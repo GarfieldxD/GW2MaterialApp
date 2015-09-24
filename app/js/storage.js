@@ -10,7 +10,9 @@
 			};
 
 			storage.AddToStorage = function (identifier, object) {
-				localStorage.setItem(identifier, JSON.stringify(object));
+				if (object !== null) {
+					localStorage.setItem(identifier, JSON.stringify(object));
+				}
 			};
 
 			storage.UpdateItem = function (identifier, object) {

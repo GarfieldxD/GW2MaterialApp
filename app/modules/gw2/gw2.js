@@ -9,8 +9,8 @@
         abstract: true,
         views: {
           'sidenav@': {
-            templateUrl: "modules/gw2/view/sidenav.html"
-            //controller: "sidenavController"
+            templateUrl: "modules/gw2/view/sidenav.html",
+            controller: "sidenavController"
           },
           'content@': {
             template: "<div ui-view></div>",
@@ -23,6 +23,15 @@
           'content@': {
             templateUrl: "modules/gw2/view/home.html",
             controller: "homeController"
+          }
+        }
+      })
+      .state('app.gw2.config', {
+        url: '/gw2/config',
+        views: {
+          'content@': {
+            templateUrl: "modules/gw2/view/config.html",
+            controller: "configController"
           }
         }
       });

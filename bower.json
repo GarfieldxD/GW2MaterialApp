@@ -12,6 +12,7 @@
     "angular-material": "master",
     "angular-ui-router": "~0.2.15",
     "angular-material-icons": "~0.6.0",
-    "angular-messages": "~1.4.5"
+    "angular-messages": "~1.4.5",
+    "angular-resource": "~1.4.6"
   }
 }

@@ -1,0 +1,38 @@
+<md-toolbar layout="row" class="md-whiteframe-z2">
+    <div class="md-toolbar-tools">
+        <md-button hide-gt-sm ng-click="ToggleLeft()" class="md-icon-button">
+            <ng-md-icon icon="menu"></ng-md-icon>
+        </md-button>
+        <h2 flex>
+          <center>Konfiguration</center>
+        </h2>
+        <md-button hide-gt-sm ng-click="Save()" class="md-icon-button">
+            <ng-md-icon icon="save"></ng-md-icon>
+        </md-button>
+    </div>
+</md-toolbar>
+<md-content flex class="md-padding" layout="column">
+    <form name="configForm">
+        <div layout layout="column">
+            <md-input-container flex>
+                <label>API-Key</label>
+                <input required type="text" ng-change="CheckTokenRights()" name="apiKey" ng-model="apiKey">
+                <div ng-messages="configForm.apiKey.$error">
+                    <div ng-message="required">
+                        Bitte geben sie einen API-Key an. https://account.arena.net/applications
+                    </div>
+                </div>
+            </md-input-container>
+        </div>
+    </form>
+    <md-divider></md-divider>
+    {{result}}
+    <md-content flex>
+        <md-list>
+            <md-list-item ng-repeat="tokenRight in tokenRights">
+                {{tokenRight}}
+            </md-list-item>
+        </md-list>
+
+    </md-content>
+</md-content>
