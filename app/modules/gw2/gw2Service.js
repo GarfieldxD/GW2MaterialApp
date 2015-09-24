@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('gw2')
-    .factory('gw2Factory', pandpFactory)
+    .factory('gw2Factory', gw2Factory)
     .service('sidenavService', ['$q', '$mdUtil', '$mdSidenav', '$log', sidenavService]);
 
   function sidenavService($q, $mdUtil, $mdSidenav, $log) {
@@ -22,7 +22,7 @@
     };
   };
 
-  function pandpFactory(storage) {
+  function gw2Factory(storage) {
     var factory = {};
     return factory;
   };

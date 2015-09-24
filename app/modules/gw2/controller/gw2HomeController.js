@@ -2,10 +2,11 @@
 
   angular
     .module('gw2')
-    .controller('homeController', ['$scope','sidenavService', gw2DiceController]);
+    .controller('homeController', ['$scope','sidenavService', gw2HomeController]);
 
-  function gw2DiceController($scope,  sidenavService) {
+  function gw2HomeController($scope,  sidenavService) {
     $scope.hello = "Hello";
+	alert();
   }
 
 })();
