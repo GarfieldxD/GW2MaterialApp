@@ -1,0 +1,28 @@
+{
+  "name": "gw2-material",
+  "private": true,
+  "version": "0.0.2",
+  "description": "Guild Wars 2 App with material design",
+  "repository": "https://github.com/GarfieldxD/GW2MaterialApp",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-angular-filesort": "^1.1.1",
+    "gulp-cache": "^0.3.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-imagemin": "^2.3.0",
+    "gulp-load-plugins": "^1.0.0-rc.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-server-livereload": "^1.5.3",
+    "gulp-uglify": "^1.4.1",
+    "http-server": "^0.6.1"
+  },
+  "scripts": {
+    "postinstall": "bower update",
+    "prestart": "npm update"
+  },
+  "dependencies": {
+    "gulp-inject": "^2.2.0",
+    "wiredep": "^3.0.0-beta"
+  }
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+
+<head>
+  <title>Angular Material - Starter App</title>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+  <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
+
+  <!-- bower:css -->
+  <link rel="stylesheet" href="vendor/angular-material.css"/>
+  <link rel="stylesheet" href="vendor/angular-material-icons.css"/>
+  <!-- endbower -->
+
+
+  <!-- inject:css -->
+  <link rel="stylesheet" href="content/app.css"/>
+  <link rel="stylesheet" href="content/material-design-iconic-font.css"/>
+  <link rel="stylesheet" href="content/material-design-iconic-font.min.css"/>
+  <!-- endinject -->
+
+
+</head>
+
+<body layout="row">
+  <md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')"
+  ui-view="sidenav">
+
+  </md-sidenav>
+  <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2" ui-view="content">
+
+  </div>
+  <section>
+    <!-- bower:js -->
+    <script src="vendor/angular.js"></script>
+    <script src="vendor/angular-animate.js"></script>
+    <script src="vendor/angular-aria.js"></script>
+    <script src="vendor/angular-material.js"></script>
+    <script src="vendor/angular-ui-router.js"></script>
+    <script src="vendor/angular-material-icons.min.js"></script>
+    <script src="vendor/angular-messages.js"></script>
+    <!-- endbower -->
+
+    <!-- main:js -->
+    <script src="js/__main.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/globals.js"></script>
+    <script src="js/routes.js"></script>
+    <script src="js/service.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/theming.js"></script>
+    <!-- endinject -->
+
+    <!-- modules:js -->
+    <script src="modules/pandp/pandp.js"></script>
+    <script src="modules/pandp/controller/pandpSidenavController.js"></script>
+    <script src="modules/pandp/controller/pandpInventoryController.js"></script>
+    <script src="modules/pandp/controller/pandpDiceController.js"></script>
+    <script src="modules/users/Users.js"></script>
+    <script src="modules/users/UserService.js"></script>
+    <script src="modules/users/UserController.js"></script>
+    <script src="modules/pandp/PandpService.js"></script>
+    <!-- endinject -->
+  </section>
+</body>
+
+</html>

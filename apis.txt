@@ -1,0 +1,37 @@
+Account:
+https://api.guildwars2.com/v2/account?access_token=<token>
+
+Bank:
+https://api.guildwars2.com/v2/account/bank?access_token=<token>
+
+Dyes:
+https://api.guildwars2.com/v2/account/dyes?access_token=<token>
+
+Materials:
+https://api.guildwars2.com/v2/account/materials?access_token=<token>
+
+Skins:
+https://api.guildwars2.com/v2/account/skins?access_token=<token>
+
+Wallet:
+https://api.guildwars2.com/v2/account/wallet?access_token=<token>
+
+
+Characters:
+https://api.guildwars2.com/v2/characters?access_token=<token>
+https://api.guildwars2.com/v2/characters/My%20Character?access_token=<token>
+			  /v2/characters/<name>/equipment
+			  /v2/characters/<name>/inventory
+
+Transactions:
+https://api.guildwars2.com/v2/commerce/transactions?access_token=<token>
+returns valid second-level endpoints
+https://api.guildwars2.com/v2/commerce/transactions/history/sells
+
+PVP:
+https://api.guildwars2.com/v2/pvp/stats?access_token=<token>
+https://api.guildwars2.com/v2/pvp/games
+https://api.guildwars2.com/v2/pvp/games?ids=<id>
+
+Tokeninfo:
+https://api.guildwars2.com/v2/tokeninfo?access_token=<token>

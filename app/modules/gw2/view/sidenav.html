@@ -1,0 +1,13 @@
+<md-toolbar class="md-whiteframe-z1">
+  <h1>Menu</h1>
+</md-toolbar>
+<md-content flex>
+  <md-list>
+    <md-list-item>
+      <md-button ui-sref="app.gw2.home" ng-click="ToggleLeft();selected = 'Home';" class="menuItem" ng-class="{'selected' : selected === 'Home' }">
+        <ng-md-icon class="menuIcon" icon="menu" ng-class="{'selected' : selected === 'Home' }" size="50"></ng-md-icon>
+        Home
+      </md-button>
+    </md-list-item>
+  </md-list>
+</md-content>

@@ -1,0 +1,1 @@
+var gw2Identifier = '12f6eaa0-88d6-48bc-8aee-867c72c7c94f';

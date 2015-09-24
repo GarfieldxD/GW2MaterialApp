@@ -1,0 +1,17 @@
+{
+  "name": "PenAndPaperMaterialApp",
+  "description": "A Pen and Paper Material app",
+  "version": "0.0.2",
+  "homepage": "https://github.com/GarfieldxD/PenAndPaperMaterialApp",
+  "license": "",
+  "private": true,
+  "dependencies": {
+    "angular": "^1.4.x",
+    "angular-animate": "^1.4.x",
+    "angular-aria": "^1.4.x",
+    "angular-material": "master",
+    "angular-ui-router": "~0.2.15",
+    "angular-material-icons": "~0.6.0",
+    "angular-messages": "~1.4.5"
+  }
+}
