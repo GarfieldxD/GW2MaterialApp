@@ -25,6 +25,7 @@
   function gw2Factory(storage, $state) {
     var factory = {};
     factory.apiKey = storage.GetFromStorage('API-Key');
+    factory.account = {};
     if (factory.apiKey === null) {
       if (!$state.includes('app.gw2.config')) {
         $state.go('app.gw2.config');

@@ -12,7 +12,7 @@
     </div>
 </md-toolbar>
 <md-content flex class="md-padding" layout="column">
-    <form name="configForm">
+    <form name="configForm" flex>
         <div layout layout="column">
             <md-input-container flex>
                 <label>API-Key</label>
@@ -28,8 +28,12 @@
     <md-divider></md-divider>
     <md-content flex>
         <md-list>
-		  <md-list-item ng-repeat="permission in tokenInfo.permissions">
-			{{permission}}
+            <md-subheader class="md-no-sticky">Berechtigungen</md-subheader>
+            <md-list-item ng-repeat="permission in tokenInfo.permissions">
+                <span flex>
+                    <ng-md-icon icon="settings"></ng-md-icon>
+                    {{permission}}
+                </span>
             </md-list-item>
         </md-list>
 
