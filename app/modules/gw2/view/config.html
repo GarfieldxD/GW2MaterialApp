@@ -26,11 +26,10 @@
         </div>
     </form>
     <md-divider></md-divider>
-    {{result}}
     <md-content flex>
         <md-list>
-            <md-list-item ng-repeat="tokenRight in tokenRights">
-                {{tokenRight}}
+		  <md-list-item ng-repeat="permission in tokenInfo.permissions">
+			{{permission}}
             </md-list-item>
         </md-list>
 

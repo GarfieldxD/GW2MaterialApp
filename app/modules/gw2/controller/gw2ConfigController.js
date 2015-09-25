@@ -20,7 +20,7 @@
         if ($scope.apiKey.length === 72) {
           gw2Factory.apiKey = $scope.apiKey;
           gw2Api.TokenInfo().then(function (data) {
-            $scope.result = data;
+            $scope.tokenInfo = data;
           });
         }
       }

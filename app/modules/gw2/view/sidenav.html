@@ -2,11 +2,18 @@
   <h1>Menu</h1>
 </md-toolbar>
 <md-content flex>
-  <md-list>
+  <md-list flex>
     <md-list-item>
       <md-button ui-sref="app.gw2.home" ng-click="ToggleLeft();selected = 'Home';" class="menuItem" ng-class="{'selected' : selected === 'Home' }">
         <ng-md-icon class="menuIcon" icon="menu" ng-class="{'selected' : selected === 'Home' }" size="50"></ng-md-icon>
         Home
+      </md-button>
+    </md-list-item>
+	<md-divider></md-divider>
+	<md-list-item>
+      <md-button ui-sref="app.gw2.config" ng-click="ToggleLeft();selected = 'Settings';" class="menuItem" ng-class="{'selected' : selected === 'Settings' }">
+        <ng-md-icon class="menuIcon" icon="settings" ng-class="{'selected' : selected === 'Srttings' }" size="50"></ng-md-icon>
+        Konfiguration
       </md-button>
     </md-list-item>
   </md-list>
