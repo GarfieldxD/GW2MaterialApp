@@ -135,3 +135,92 @@ span.name {
   font-size:1.1em;
   padding-left:5px;
 }
+
+.inactive{
+  opacity: .5;
+}
+
+.smallIcon{
+vertical-align: middle;
+  height:24px;
+  width:24px;
+}
+.raceIcon{
+  margin:12px 16px 8px 0px;
+vertical-align: middle;
+  height:40px;
+  width:40px;
+}
+
+.ExoticBorder {
+  border:2px solid orange;
+}
+
+.AscendedBorder {
+  border:2px solid #f48;
+}
+
+.FineBorder {
+  border:2px solid #09C;
+}
+
+.MasterworkBorder{
+  border:2px solid #3C1;
+}
+
+.Exotic {
+  color:orange !important;
+}
+
+.Ascended {
+  color:#f48 !important;
+}
+
+.Fine{
+  color:#09C !important;
+}
+
+.Masterwork{
+  color:#3C1 !important;
+}
+
+.weapon{
+      display: inherit !important;
+}
+
+.upgrade{
+  vertical-align: top;
+  height:30px;
+  width:30px;
+   margin-right:5px;
+}
+
+.itemIcon{
+  margin-right:5px;
+  margin-bottom:5px;
+  height:64px;
+  width:64px;
+}
+
+.inventoryBag{
+  display: inline-block !important;
+}
+
+.inventoryIcon{
+  margin-right:5px;
+  margin-bottom:5px;
+  height:48px;
+  width:48px;
+}
+
+.inventoryItem{  
+  position:relative;
+}
+
+.inventoryItem span{
+  position:absolute;
+  color:#fff;
+  line-height: 100%;
+  bottom:12px;
+  right:12px;
+}
