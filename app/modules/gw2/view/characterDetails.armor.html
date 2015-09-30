@@ -1,0 +1,62 @@
+<md-tabs flex md-dynamic-height md-border-bottom class="md-warn" md-swipe-content="true">
+	<md-tab>
+		<md-tab-label>
+			<section layout="column" layout-align="center center">
+				Waffen
+			</section>
+		</md-tab-label>
+		<md-content class="md-padding">
+			<h3>Waffen</h3>
+			<div layout="column">
+				<div ng-repeat="weapon in character.equipment.weapons" class="weapon">
+					<img ng-src="https://render.guildwars2.com/file/{{weapon.skin.icon_file_signature}}/{{weapon.skin.icon_file_id}}.png" class="{{weapon.details.rarity}}Border itemIcon"
+					/>
+					<img ng-src="https://render.guildwars2.com/file/{{upgrade.icon_file_signature}}/{{upgrade.icon_file_id}}.png" ng-repeat="upgrade in weapon.upgrades"
+					class="upgrade {{upgrade.rarity}}Border" />
+					<img ng-src="https://render.guildwars2.com/file/{{infusion.icon_file_signature}}/{{infusion.icon_file_id}}.png" ng-repeat="infusion in weapon.infusions"
+					class="upgrade {{infusion.rarity}}Border" />
+				</div>
+			</div>
+			<h3>Unterwasser</h3>
+			<div layout="column">
+				<div ng-repeat="weapon in character.equipment.underwater" class="weapon">
+					<img ng-src="https://render.guildwars2.com/file/{{weapon.skin.icon_file_signature}}/{{weapon.skin.icon_file_id}}.png" class="{{weapon.details.rarity}}Border itemIcon"
+					/>
+					<img ng-src="https://render.guildwars2.com/file/{{upgrade.icon_file_signature}}/{{upgrade.icon_file_id}}.png" ng-repeat="upgrade in weapon.upgrades"
+					class="upgrade {{upgrade.rarity}}Border" />
+					<img ng-src="https://render.guildwars2.com/file/{{infusion.icon_file_signature}}/{{infusion.icon_file_id}}.png" ng-repeat="infusion in weapon.infusions"
+					class="upgrade {{infusion.rarity}}Border" />
+				</div>
+			</div>
+		</md-content>
+	</md-tab>
+	<md-tab>
+		<md-tab-label>
+			<section layout="column" layout-align="center center">
+				Ausrüstung
+			</section>
+		</md-tab-label>
+		<md-content class="md-padding" ng-include="'/modules/gw2/view/characterDetails.armor.armor.html'">
+		</md-content>
+	</md-tab>
+	<md-tab>
+		<md-tab-label>
+			<section layout="column" layout-align="center center">
+				Abbauwekzeuge
+			</section>
+		</md-tab-label>
+		<md-content>
+			<!--{{character.equipment.tools.Sickle}}
+			{{character.equipment.tools.Pick}}
+			{{character.equipment.tools.Axe}}-->
+			<h3>Abbauwerkzeuge</h3>
+			<md-grid-list>
+				<md-list-item ng-repeat="tool in character.equipment.tools">
+					<img ng-src="https://render.guildwars2.com/file/{{tool.skin.icon_file_signature}}/{{tool.skin.icon_file_id}}.png" class="{{tool.details.rarity}}Border itemIcon"
+					/> {{tool.details.name}}
+				</md-list-item>
+			</md-grid-list>
+
+		</md-content>
+	</md-tab>
+</md-tabs>

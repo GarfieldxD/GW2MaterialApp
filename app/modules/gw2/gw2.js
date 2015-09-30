@@ -35,6 +35,15 @@
           }
         }
       })
+      .state('app.gw2.character.detail', {
+        url: '/gw2/character/:characterName',
+        views: {
+          'content@': {
+            templateUrl: "modules/gw2/view/characterDetails.html",
+            controller: "characterDetailController"
+          }
+        }
+      })
       .state('app.gw2.config', {
         url: '/gw2/config',
         views: {

@@ -1,0 +1,24 @@
+<div layout="row">
+	<img ng-src="images/{{character.profession}}_icon.png" class="md-avatar" alt="{{char.profession}}" />
+	<div>
+		<p>
+			<span ng-if="character.guild.guild_name">{{character.guild.guild_name}}</span>
+			<span ng-if="character.guild.guild_name">[{{ character.guild.tag }}]</span>
+		</p>
+		<div><img ng-src="images/races/{{character.race}}.png" class="smallIcon" alt="{{char.race}}" />{{character.race}}</div>
+		<div layout="row">
+			<p flex>
+				<ng-md-icon icon="access_time" size="24"></ng-md-icon> {{character.age}}h
+			</p>
+			<p flex>
+				<md-icon md-svg-icon="death" size="24"></md-icon>{{character.deaths}}
+			</p>
+		</div>
+	</div>
+</div>
+<md-divider></md-divider>
+<md-chips>
+	<md-chip ng-repeat="crafting in character.crafting | orderBy:'active' :true" ng-class="{'inactive':crafting.active == false}">
+		<img ng-src="images/disciplines/{{crafting.discipline}}.png" class="smallIcon" alt="{{crafting.discipline}}" /> {{crafting.rating}}
+	</md-chip>
+</md-chips>
