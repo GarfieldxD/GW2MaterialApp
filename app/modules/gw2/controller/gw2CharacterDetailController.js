@@ -2,18 +2,24 @@
 
   angular
     .module('gw2')
-    .controller('characterDetailController', ['$scope', 'sidenavService', 'gw2Factory', 'gw2Api', '$stateParams', gw2HomeController]);
+    .controller('characterDetailController', ['$scope', 'sidenavService', 'gw2Factory', 'gw2Api', '$stateParams', 'dialogService', 'character', gw2HomeController]);
 
-  function gw2HomeController($scope, sidenavService, gw2Factory, gw2Api, $stateParams) {
+  function gw2HomeController($scope, sidenavService, gw2Factory, gw2Api, $stateParams, dialogService, character) {
     $scope.ToggleLeft = sidenavService.ToggleSidenav('left');
-    getCharacter($stateParams.characterName);
+    $scope.ShowItemDialog = showItemDialog;
+    //getCharacter($stateParams.characterName);
+    $scope.character = character;
+    console.log(character);
 
     function getCharacter(name) {
       gw2Api.GetCharacterDetails(name).then(function (data) {
-        console.log(data.equipment.weapons[3]);
         $scope.character = data;
       });
-    }
+    };
+
+    function showItemDialog(item) {
+      dialogService.ShowItemDialog(item);
+    };
   }
 
 })();

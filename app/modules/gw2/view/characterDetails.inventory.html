@@ -3,8 +3,8 @@
 		<p>{{bag.details.name}}</p>
 	</div>
 	<div style="position:relative">
-		<span ng-repeat="item in bag.inventory track by $index" class="inventoryItem">
-			<img ng-src="https://render.guildwars2.com/file/{{item.details.icon_file_signature}}/{{item.details.icon_file_id}}.png" class="{{item.details.rarity}}Border inventoryIcon"
+		<span ng-click="ShowItemDialog(item)" ng-repeat="item in bag.inventory track by $index" class="inventoryItem">
+			<img ng-src="{{item.icon}}" class="{{item.rarity}}Border inventoryIcon"
 					/>					
 					<span>{{item.count}}</span>
 		</span>

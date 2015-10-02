@@ -5,27 +5,22 @@
 				Waffen
 			</section>
 		</md-tab-label>
-		<md-content class="md-padding">
+		<md-content flex class="md-padding">
 			<h3>Waffen</h3>
 			<div layout="column">
-				<div ng-repeat="weapon in character.equipment.weapons" class="weapon">
-					<img ng-src="https://render.guildwars2.com/file/{{weapon.skin.icon_file_signature}}/{{weapon.skin.icon_file_id}}.png" class="{{weapon.details.rarity}}Border itemIcon"
-					/>
-					<img ng-src="https://render.guildwars2.com/file/{{upgrade.icon_file_signature}}/{{upgrade.icon_file_id}}.png" ng-repeat="upgrade in weapon.upgrades"
-					class="upgrade {{upgrade.rarity}}Border" />
-					<img ng-src="https://render.guildwars2.com/file/{{infusion.icon_file_signature}}/{{infusion.icon_file_id}}.png" ng-repeat="infusion in weapon.infusions"
-					class="upgrade {{infusion.rarity}}Border" />
+				<div ng-repeat="weapon in character.equipment.weapons.first">
+					<armor-preview armor="weapon"></armor-preview>
+				</div>
+				<br>				
+				<br>
+				<div ng-repeat="weapon in character.equipment.weapons.second">
+					<armor-preview armor="weapon"></armor-preview>
 				</div>
 			</div>
 			<h3>Unterwasser</h3>
 			<div layout="column">
-				<div ng-repeat="weapon in character.equipment.underwater" class="weapon">
-					<img ng-src="https://render.guildwars2.com/file/{{weapon.skin.icon_file_signature}}/{{weapon.skin.icon_file_id}}.png" class="{{weapon.details.rarity}}Border itemIcon"
-					/>
-					<img ng-src="https://render.guildwars2.com/file/{{upgrade.icon_file_signature}}/{{upgrade.icon_file_id}}.png" ng-repeat="upgrade in weapon.upgrades"
-					class="upgrade {{upgrade.rarity}}Border" />
-					<img ng-src="https://render.guildwars2.com/file/{{infusion.icon_file_signature}}/{{infusion.icon_file_id}}.png" ng-repeat="infusion in weapon.infusions"
-					class="upgrade {{infusion.rarity}}Border" />
+				<div ng-repeat="weapon in character.equipment.underwater">
+					<armor-preview armor="weapon"></armor-preview>
 				</div>
 			</div>
 		</md-content>
@@ -52,8 +47,7 @@
 			<h3>Abbauwerkzeuge</h3>
 			<md-grid-list>
 				<md-list-item ng-repeat="tool in character.equipment.tools">
-					<img ng-src="https://render.guildwars2.com/file/{{tool.skin.icon_file_signature}}/{{tool.skin.icon_file_id}}.png" class="{{tool.details.rarity}}Border itemIcon"
-					/> {{tool.details.name}}
+					<img ng-src="{{tool.icon}}" class="{{tool.rarity}}Border itemIcon" /> {{tool.name}}
 				</md-list-item>
 			</md-grid-list>
 

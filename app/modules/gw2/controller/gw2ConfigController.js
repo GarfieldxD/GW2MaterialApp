@@ -12,7 +12,7 @@
     $scope.CheckTokenRights = checkTokenRights;
 
     function save() {
-      storage.AddToStorage('API-Key', $scope.apiKey)
+      storage.AddToStorage('API-Key', $scope.apiKey);
     }
 
     function checkTokenRights() {

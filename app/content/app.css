@@ -135,3 +135,123 @@ span.name {
   font-size:1.1em;
   padding-left:5px;
 }
+
+.inactive{
+  opacity: .5;
+}
+
+.smallIcon{
+vertical-align: middle;
+  height:24px;
+  width:24px;
+}
+.raceIcon{
+  margin:12px 16px 8px 0px;
+vertical-align: middle;
+  height:40px;
+  width:40px;
+}
+
+.ExoticBorder {
+  border:2px solid #FDA500;
+}
+
+.AscendedBorder {
+  border:2px solid #f48;
+}
+
+.FineBorder {
+  border:2px solid #09C;
+}
+
+.MasterworkBorder{
+  border:2px solid #3C1;
+}
+
+.RareBorder{
+  border:2px solid #ff0;
+}
+
+.Rare {
+  color:#ff0 !important;
+}
+.Exotic {
+  color:#FDA500 !important;
+}
+
+.Ascended {
+  color:#f48 !important;
+}
+
+.Fine{
+  color:#09C !important;
+}
+
+.Masterwork{
+  color:#3C1 !important;
+}
+
+.weapon{
+      display: inherit !important;
+}
+
+.upgrade{
+  vertical-align: top;
+  height:30px;
+  width:30px;
+   margin-right:5px;
+}
+
+.dialogUpgrade{
+  height:32px;
+  width:32px;
+}
+
+.itemIcon{
+  margin-right:5px;
+  margin-bottom:5px;
+  height:64px;
+  width:64px;
+}
+
+.inventoryBag{
+  display: inline-block !important;
+}
+
+.inventoryIcon{
+  margin-right:5px;
+  margin-bottom:5px;
+  height:48px;
+  width:48px;
+}
+
+.inventoryItem{  
+  position:relative;
+}
+
+.inventoryItem span{
+  position:absolute;
+  color:#fff;
+  line-height: 100%;
+  bottom:12px;
+  right:12px;
+}
+
+.damage{
+  color:#9C0;
+}
+
+.badge{
+      display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    margin:4px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;    
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+   background-color: rgb(224, 224, 224);
+    border-radius: 10px;
+}

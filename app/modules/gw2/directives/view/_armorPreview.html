@@ -1,0 +1,5 @@
+<div class="armor" >
+	<img ng-click="ShowItemDialog(armor)" ng-src="{{armor.icon}}" class="{{armor.rarity}}Border itemIcon" />
+	<img ng-click="ShowItemDialog(upgrade)" ng-src="{{upgrade.icon}}" ng-repeat="upgrade in armor.upgrades" class="upgrade {{upgrade.rarity}}Border" />
+	<img ng-click="ShowItemDialog(infusion)" ng-src="{{infusion.icon}}" ng-repeat="infusion in armor.infusions" class="upgrade {{infusion.rarity}}Border" />
+</div>

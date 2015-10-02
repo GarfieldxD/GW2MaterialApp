@@ -15,6 +15,11 @@
           'content@': {
             template: "<div ui-view></div>",
           }
+        },
+        resolve: {
+          account: function (gw2Api) {
+            return gw2Api.AccountInfo();
+          }
         }
       })
       .state('app.gw2.home', {
@@ -33,14 +38,26 @@
             templateUrl: "modules/gw2/view/character.html",
             controller: "characterController"
           }
+        },
+        resolve: {
+          character: function (gw2Api) {
+            return gw2Api.GetCharacter();
+          }
         }
       })
       .state('app.gw2.character.detail', {
-        url: '/gw2/character/:characterName',
+        url: '/:characterName',
         views: {
           'content@': {
             templateUrl: "modules/gw2/view/characterDetails.html",
             controller: "characterDetailController"
+          }
+        },
+        resolve: {
+          character: function (gw2Api,$stateParams) {
+            var help = gw2Api.GetCharacterDetails($stateParams.characterName);
+            console.log(help);
+            return help;
           }
         }
       })

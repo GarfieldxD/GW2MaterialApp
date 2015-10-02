@@ -4,8 +4,8 @@
             <ng-md-icon icon="menu"></ng-md-icon>
         </md-button>
         <h2 flex>
-          <center>     
-        {{character.name}}  
+          <center>                    
+			<strong>{{character.name}}</strong>	
         </center>
         </h2>
     </div>
@@ -18,7 +18,7 @@
                     <md-icon md-svg-icon="death" class="md-accent"></md-icon>
                 </section>
             </md-tab-label>
-            <md-content ng-include="'/modules/gw2/view/characterDetails.general.html'">                
+            <md-content ng-include="'/modules/gw2/view/characterDetails.general.html'">
             </md-content>
         </md-tab>
         <md-tab>

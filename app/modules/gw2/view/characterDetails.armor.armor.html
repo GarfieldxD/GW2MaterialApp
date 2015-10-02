@@ -1,60 +1,18 @@
 <div layout="column">
-	<div class="armor">
-		<img ng-src="https://render.guildwars2.com/file/{{character.equipment.armor.Helm.skin.icon_file_signature}}/{{character.equipment.armor.Helm.skin.icon_file_id}}.png"
-		class="{{character.equipment.armor.Helm.details.rarity}}Border itemIcon" />
-		<img ng-src="https://render.guildwars2.com/file/{{upgrade.icon_file_signature}}/{{upgrade.icon_file_id}}.png" ng-repeat="upgrade in character.equipment.armor.Helm.upgrades"
-		class="upgrade {{upgrade.rarity}}Border" />
-		<img ng-src="https://render.guildwars2.com/file/{{infusion.icon_file_signature}}/{{infusion.icon_file_id}}.png" ng-repeat="infusion in character.equipment.armor.Helm.infusions"
-		class="upgrade {{infusion.rarity}}Border" />
-	</div>
+	<armor-preview armor="character.equipment.armor.Helm"></armor-preview>
 </div>
 <div layout="column">
-	<div class="armor">
-		<img ng-src="https://render.guildwars2.com/file/{{character.equipment.armor.Shoulders.skin.icon_file_signature}}/{{character.equipment.armor.Shoulders.skin.icon_file_id}}.png"
-		class="{{character.equipment.armor.Shoulders.details.rarity}}Border itemIcon" />
-		<img ng-src="https://render.guildwars2.com/file/{{upgrade.icon_file_signature}}/{{upgrade.icon_file_id}}.png" ng-repeat="upgrade in character.equipment.armor.Shoulders.upgrades"
-		class="upgrade {{upgrade.rarity}}Border" />
-		<img ng-src="https://render.guildwars2.com/file/{{infusion.icon_file_signature}}/{{infusion.icon_file_id}}.png" ng-repeat="infusion in character.equipment.armor.Shoulders.infusions"
-		class="upgrade {{infusion.rarity}}Border" />
-	</div>
+	<armor-preview armor="character.equipment.armor.Shoulders"></armor-preview>
 </div>
 <div layout="column">
-	<div class="armor">
-		<img ng-src="https://render.guildwars2.com/file/{{character.equipment.armor.Coat.skin.icon_file_signature}}/{{character.equipment.armor.Coat.skin.icon_file_id}}.png"
-		class="{{character.equipment.armor.Coat.details.rarity}}Border itemIcon" />
-		<img ng-src="https://render.guildwars2.com/file/{{upgrade.icon_file_signature}}/{{upgrade.icon_file_id}}.png" ng-repeat="upgrade in character.equipment.armor.Coat.upgrades"
-		class="upgrade {{upgrade.rarity}}Border" />
-		<img ng-src="https://render.guildwars2.com/file/{{infusion.icon_file_signature}}/{{infusion.icon_file_id}}.png" ng-repeat="infusion in character.equipment.armor.Coat.infusions"
-		class="upgrade {{infusion.rarity}}Border" />
-	</div>
+	<armor-preview armor="character.equipment.armor.Coat"></armor-preview>
 </div>
 <div layout="column">
-	<div class="armor">
-		<img ng-src="https://render.guildwars2.com/file/{{character.equipment.armor.Gloves.skin.icon_file_signature}}/{{character.equipment.armor.Gloves.skin.icon_file_id}}.png"
-		class="{{character.equipment.armor.Gloves.details.rarity}}Border itemIcon" />
-		<img ng-src="https://render.guildwars2.com/file/{{upgrade.icon_file_signature}}/{{upgrade.icon_file_id}}.png" ng-repeat="upgrade in character.equipment.armor.Gloves.upgrades"
-		class="upgrade {{upgrade.rarity}}Border" />
-		<img ng-src="https://render.guildwars2.com/file/{{infusion.icon_file_signature}}/{{infusion.icon_file_id}}.png" ng-repeat="infusion in character.equipment.armor.Gloves.infusions"
-		class="upgrade {{infusion.rarity}}Border" />
-	</div>
+	<armor-preview armor="character.equipment.armor.Gloves"></armor-preview>
 </div>
 <div layout="column">
-	<div class="armor">
-		<img ng-src="https://render.guildwars2.com/file/{{character.equipment.armor.Leggings.skin.icon_file_signature}}/{{character.equipment.armor.Leggings.skin.icon_file_id}}.png"
-		class="{{character.equipment.armor.Leggings.details.rarity}}Border itemIcon" />
-		<img ng-src="https://render.guildwars2.com/file/{{upgrade.icon_file_signature}}/{{upgrade.icon_file_id}}.png" ng-repeat="upgrade in character.equipment.armor.Leggings.upgrades"
-		class="upgrade {{upgrade.rarity}}Border" />
-		<img ng-src="https://render.guildwars2.com/file/{{infusion.icon_file_signature}}/{{infusion.icon_file_id}}.png" ng-repeat="infusion in character.equipment.armor.Leggings.infusions"
-		class="upgrade {{infusion.rarity}}Border" />
-	</div>
+	<armor-preview armor="character.equipment.armor.Leggings"></armor-preview>
 </div>
 <div layout="column">
-	<div class="armor">
-		<img ng-src="https://render.guildwars2.com/file/{{character.equipment.armor.Boots.skin.icon_file_signature}}/{{character.equipment.armor.Boots.skin.icon_file_id}}.png"
-		class="{{character.equipment.armor.Boots.details.rarity}}Border itemIcon" />
-		<img ng-src="https://render.guildwars2.com/file/{{upgrade.icon_file_signature}}/{{upgrade.icon_file_id}}.png" ng-repeat="upgrade in character.equipment.armor.Boots.upgrades"
-		class="upgrade {{upgrade.rarity}}Border" />
-		<img ng-src="https://render.guildwars2.com/file/{{infusion.icon_file_signature}}/{{infusion.icon_file_id}}.png" ng-repeat="infusion in character.equipment.armor.Boots.infusions"
-		class="upgrade {{infusion.rarity}}Border" />
-	</div>
+	<armor-preview armor="character.equipment.armor.Boots"></armor-preview>
 </div>

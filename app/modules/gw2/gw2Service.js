@@ -3,7 +3,8 @@
 
   angular.module('gw2')
     .factory('gw2Factory', gw2Factory)
-    .service('sidenavService', sidenavService);
+    .service('sidenavService', sidenavService)
+    .service('dialogService', dialogService);
 
   function sidenavService($q, $mdUtil, $mdSidenav, $log) {
     function buildToggler(navID) {
@@ -22,15 +23,42 @@
     };
   };
 
-  function gw2Factory(storage, $state) {
-    var factory = {};
-    factory.apiKey = storage.GetFromStorage('API-Key');
-    factory.account = {};
-    if (factory.apiKey === null) {
-      if (!$state.includes('app.gw2.config')) {
-        $state.go('app.gw2.config');
-      }
+  function dialogService($mdDialog) {
+    function showDialog(item) {
+      console.log(item);
+      $mdDialog.show({
+        templateUrl: 'modules/gw2/view/_itemViewDialog.html',
+        parent: angular.element(document.body),
+        locals: { item: item },
+        controller: angular.noop,
+        controllerAs: 'ctrl',
+        bindToController: true,
+        clickOutsideToClose: true
+      });
     }
+    return {
+      ShowItemDialog: showDialog
+    };
+  }
+
+  function DialogController($scope, $mdDialog) {
+    $scope.hide = function () {
+      $mdDialog.hide();
+    };
+    $scope.cancel = function () {
+      $mdDialog.cancel();
+    };
+    $scope.answer = function (answer) {
+      $mdDialog.hide(answer);
+    };
+  }
+
+  function gw2Factory(storage, $state) {
+    var factory = {
+      account: {},
+      characters: []
+    };
     return factory;
+
   };
 })();
