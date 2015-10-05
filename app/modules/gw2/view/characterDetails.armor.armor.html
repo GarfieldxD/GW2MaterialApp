@@ -1,18 +1,25 @@
-<div layout="column">
-	<armor-preview armor="character.equipment.armor.Helm"></armor-preview>
+<div flex>
+	<div layout="column">
+		<armor-preview armor="character.equipment.armor.Helm"></armor-preview>
+	</div>
+	<div layout="column">
+		<armor-preview armor="character.equipment.armor.Shoulders"></armor-preview>
+	</div>
+	<div layout="column">
+		<armor-preview armor="character.equipment.armor.Coat"></armor-preview>
+	</div>
+	<div layout="column">
+		<armor-preview armor="character.equipment.armor.Gloves"></armor-preview>
+	</div>
+	<div layout="column">
+		<armor-preview armor="character.equipment.armor.Leggings"></armor-preview>
+	</div>
+	<div layout="column">
+		<armor-preview armor="character.equipment.armor.Boots"></armor-preview>
+	</div>
 </div>
-<div layout="column">
-	<armor-preview armor="character.equipment.armor.Shoulders"></armor-preview>
-</div>
-<div layout="column">
-	<armor-preview armor="character.equipment.armor.Coat"></armor-preview>
-</div>
-<div layout="column">
-	<armor-preview armor="character.equipment.armor.Gloves"></armor-preview>
-</div>
-<div layout="column">
-	<armor-preview armor="character.equipment.armor.Leggings"></armor-preview>
-</div>
-<div layout="column">
-	<armor-preview armor="character.equipment.armor.Boots"></armor-preview>
+<div flex>
+	<span ng-repeat="trinket in character.equipment.trinkets">
+		<armor-preview armor="trinket"></armor-preview>
+	</span>
 </div>

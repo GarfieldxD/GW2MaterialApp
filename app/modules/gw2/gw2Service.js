@@ -4,7 +4,37 @@
   angular.module('gw2')
     .factory('gw2Factory', gw2Factory)
     .service('sidenavService', sidenavService)
-    .service('dialogService', dialogService);
+    .service('dialogService', dialogService)
+    .directive("bindCompiledHtml", function ($compile, $timeout) {
+      return {
+        template: '<div></div>',
+        scope: {
+          rawHtml: '=bindCompiledHtml'
+        },
+        link: function (scope, elem, attrs) {
+          scope.$watch('rawHtml', function (value) {
+            if (!value) return;
+            value = value.replace(/\r?\n|\r/g, '<br>');
+            if(value.indexOf('<c=') != -1)
+            {
+              var indexOfStart = value.indexOf('<c=');
+              var indexOfEnd = value.indexOf('</c>') + 4;
+              var gw2Text = value.substring(indexOfStart,indexOfEnd);
+              var cssClass = gw2Text.substring(gw2Text.indexOf('@')+1,gw2Text.indexOf('>'));
+              console.log(cssClass);
+              var myText= gw2Text.replace('=@'+cssClass+'>',' class="'+cssClass+'">');
+              myText= myText.replace('<c','<div');
+              myText= myText.replace('/c>','/div>');
+              console.log(myText);
+              value = value.replace(gw2Text,myText);
+            }
+            var newElem = $compile('<span>'+value+'</span>')(scope.$parent);
+            elem.contents().remove();
+            elem.append(newElem);
+          });
+        }
+      };
+    })
 
   function sidenavService($q, $mdUtil, $mdSidenav, $log) {
     function buildToggler(navID) {

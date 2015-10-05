@@ -169,11 +169,12 @@
             fillItem(item, details[0], details[1]);
             character.equipment.tools[item.slot] = item;
           }
-          if (item.slot == 'Coat' || item.slot == 'Boots' || item.slot == 'Gloves' || item.slot == 'Helm' || item.slot == 'Leggings' || item.slot == 'Shoulders') {
+          if (item.slot == 'HelmAquatic' || item.slot == 'Coat' || item.slot == 'Boots' || item.slot == 'Gloves' || item.slot == 'Helm' || item.slot == 'Leggings' || item.slot == 'Shoulders') {
             fillItem(item, details[0], details[1]);
             character.equipment.armor[item.slot] = item;
           }
-          if (item.slot == 'Accessory1' || item.slot == 'Accessory2' || item.slot == 'Ring1' || item.slot == 'Ring2' || item.slot == 'Amulet') {
+          if (item.slot == 'Accessory1' || item.slot == 'Accessory2' || item.slot == 'Ring1' || item.slot == 'Ring2' || item.slot == 'Amulet' || item.slot == 'Backpack') {
+            console.log(item);
             fillItem(item, details[0], details[1]);
             character.equipment.trinkets[item.slot] = item;
           }
@@ -185,7 +186,7 @@
             fillItem(item, details[0], details[1]);
             character.equipment.weapons.second[item.slot] = item;
           }
-          if (item.slot == 'HelmAquatic' || item.slot == 'WeaponAquaticA' || item.slot == 'WeaponAquaticB') {
+          if (item.slot == 'WeaponAquaticA' || item.slot == 'WeaponAquaticB') {
             fillItem(item, details[0], details[1]);
             character.equipment.underwater[item.slot] = item;
           }
@@ -214,21 +215,24 @@
         infusions.push(fillItemWithDetails(itemDetail, null, infusion));
       });
       item.infusions = infusions;
-    }
-    console.log(item);
+    }    
   }
 
   function fillItemWithDetails(itemDetails, skinDetails, item) {
     if (skinDetails) {
       angular.forEach(skinDetails, function (key, value) {
-        item[value] = key;
+        if (value === 'name' || value === 'icon') {
+          item[value] = key;
+        }
       });
+      item.original = {};      
       angular.forEach(itemDetails, function (key, value) {
         if (!item[value]) {
           item[value] = key;
         }
-        item.original = {};
-        item.original[value] = key;
+        else {
+          item.original[value] = key;
+        }
       });
     }
     else {

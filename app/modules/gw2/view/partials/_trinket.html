@@ -1,0 +1,28 @@
+<div ng-repeat="attribute in ctrl.item.details.infix_upgrade.attributes">
+        <span class="damage">+ {{attribute.modifier}} {{attribute.attribute}}</span>
+</div>
+</div>
+<br>
+<div ng-if="ctrl.item.upgrades">
+        <div ng-repeat="upgrade in ctrl.item.upgrades" layout="row" style="dialogUpgradeBox">
+                <img ng-src="{{upgrade.icon}}" class="dialogUpgrade {{upgrade.rarity}}Border" />
+                <span class="dialogUpgradeText buff">{{upgrade.name}}</span>
+        </div>
+</div>
+<div ng-if="ctrl.item.infusions">
+        <div ng-repeat="infusion in ctrl.item.infusions" layout="row" style="dialogUpgradeBox">
+                <img ng-src="{{infusion.icon}}" class="dialogUpgrade {{infusion.rarity}}Border" />
+                <span class="dialogUpgradeText buff">{{infusion.name}}</span>
+        </div>
+</div>
+<br>
+<div>
+        {{ctrl.item.rarity}}
+        <br> {{ctrl.item.details.type}}
+        <span class="damage">
+                <pre bind-compiled-html="ctrl.item.details.infix_upgrade.buff.description"></pre>
+        </span>
+        Level: {{ctrl.item.level}}
+        <br>
+        <span bind-compiled-html="ctrl.item.description"></span>
+</div>

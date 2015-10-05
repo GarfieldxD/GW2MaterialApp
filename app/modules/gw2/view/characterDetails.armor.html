@@ -5,22 +5,25 @@
 				Waffen
 			</section>
 		</md-tab-label>
-		<md-content flex class="md-padding">
-			<h3>Waffen</h3>
-			<div layout="column">
-				<div ng-repeat="weapon in character.equipment.weapons.first">
-					<armor-preview armor="weapon"></armor-preview>
-				</div>
-				<br>				
-				<br>
-				<div ng-repeat="weapon in character.equipment.weapons.second">
-					<armor-preview armor="weapon"></armor-preview>
+		<md-content flex class="md-padding" layout="row">
+			<div flex>
+				<div layout="column">
+					<div ng-repeat="weapon in character.equipment.weapons.first">
+						<armor-preview armor="weapon"></armor-preview>
+					</div>
+					<div ng-repeat="weapon in character.equipment.weapons.second">
+						<armor-preview armor="weapon"></armor-preview>
+					</div>
 				</div>
 			</div>
-			<h3>Unterwasser</h3>
-			<div layout="column">
-				<div ng-repeat="weapon in character.equipment.underwater">
-					<armor-preview armor="weapon"></armor-preview>
+			<div flex>
+				<div layout="column">
+					<armor-preview armor="character.equipment.armor.HelmAquatic"></armor-preview>
+				</div>
+				<div layout="column">
+					<div ng-repeat="weapon in character.equipment.underwater">
+						<armor-preview armor="weapon"></armor-preview>
+					</div>
 				</div>
 			</div>
 		</md-content>
@@ -31,7 +34,7 @@
 				Ausrüstung
 			</section>
 		</md-tab-label>
-		<md-content class="md-padding" ng-include="'/modules/gw2/view/characterDetails.armor.armor.html'">
+		<md-content class="md-padding" layout="row" ng-include="'/modules/gw2/view/characterDetails.armor.armor.html'">
 		</md-content>
 	</md-tab>
 	<md-tab>
@@ -40,17 +43,14 @@
 				Abbauwekzeuge
 			</section>
 		</md-tab-label>
-		<md-content>
-			<!--{{character.equipment.tools.Sickle}}
-			{{character.equipment.tools.Pick}}
-			{{character.equipment.tools.Axe}}-->
+		<md-content class="md-padding">
 			<h3>Abbauwerkzeuge</h3>
-			<md-grid-list>
-				<md-list-item ng-repeat="tool in character.equipment.tools">
-					<img ng-src="{{tool.icon}}" class="{{tool.rarity}}Border itemIcon" /> {{tool.name}}
-				</md-list-item>
-			</md-grid-list>
-
+			<div layout="row" ng-repeat="tool in character.equipment.tools">
+				<img ng-src="{{tool.icon}}" class="{{tool.rarity}}Border itemIcon" />
+				<span style="line-height:48px;">
+					{{tool.name}}
+					</span>
+			</div>
 		</md-content>
 	</md-tab>
 </md-tabs>

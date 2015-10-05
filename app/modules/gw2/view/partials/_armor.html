@@ -1,0 +1,36 @@
+<span ng-if="ctrl.item.details.min_power">
+        Schaden: <span class="damage">{{ctrl.item.details.min_power}}</span> - <span class="damage">{{ctrl.item.details.max_power}}</span>
+</span>
+<span ng-if="ctrl.item.details.defense">
+        Verteidigung: <span class="damage">{{ctrl.item.details.defense}}</span>
+</span>
+<div ng-repeat="attribute in ctrl.item.details.infix_upgrade.attributes">
+        <span class="damage">+ {{attribute.modifier}} {{attribute.attribute}}</span>
+</div>
+</div>
+<br>
+<div ng-if="ctrl.item.upgrades">
+        <div ng-repeat="upgrade in ctrl.item.upgrades" layout="row" style="dialogUpgradeBox">
+                <img ng-src="{{upgrade.icon}}" class="dialogUpgrade {{upgrade.rarity}}Border" />
+                <span class="dialogUpgradeText buff">{{upgrade.name}}</span>
+        </div>
+</div>
+<div ng-if="ctrl.item.infusions">
+        <div ng-repeat="infusion in ctrl.item.infusions" layout="row" style="dialogUpgradeBox">
+                <img ng-src="{{infusion.icon}}" class="dialogUpgrade {{infusion.rarity}}Border" />
+                <span class="dialogUpgradeText buff">{{infusion.name}}</span>
+        </div>
+</div>
+<br>
+<div ng-if="ctrl.item.original">
+        Transmutiert
+        <br/> {{ctrl.item.original.name}}
+</div>
+<br ng-if="ctrl.item.original">
+<div>
+        {{ctrl.item.rarity}}
+        <br> {{ctrl.item.details.type}} {{ctrl.item.details.weight_class}}
+        <br> Level: {{ctrl.item.level}}
+        <br>
+        <span bind-compiled-html="ctrl.item.description"></span>
+</div>

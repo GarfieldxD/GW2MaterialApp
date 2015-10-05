@@ -1,58 +1,14 @@
 <md-dialog aria-label="">
-  <md-dialog-content style="max-width:800px;max-height:810px;background:rgba(0,0,0,.9);color:#fff">
+  <md-dialog-content style="background:rgba(0,0,0,.9);color:#fff">
     <div layout="row">
       <img ng-src="{{ctrl.item.icon}}" class="{{ctrl.item.rarity}}Border upgrade" />
       <strong class="item-name"><span class="{{ctrl.item.rarity}}">{{ctrl.item.name}}</span></strong>
     </div>
     <div>
-      <span ng-if="ctrl.item.type ==='Weapon'">
-        Schaden: <span class="damage">{{ctrl.item.original.details.min_power}}</span> - <span class="damage">{{ctrl.item.original.details.max_power}}</span>
-      </span>
-      <span ng-if="ctrl.item.type ==='Armor'">
-        Verteidigung: <span class="damage">{{ctrl.item.original.details.defense}}</span>
-      </span>
-      <span ng-if="ctrl.item.type ==='UpgradeComponent'"> 
-        <span ng-if="ctrl.item.details.type === 'Rune'">
-          <div ng-repeat="bonus in ctrl.item.details.bonuses">
-            ({{$index}})<span>{{bonus}}</span>  
-          </div>
-        </span>
-        <span ng-if="ctrl.item.details.type === 'Rune'">
-          <pre class="damage">{{ctrl.item.details.infix_upgrade.buff.description}}</pre>
-        </span>
-      </span>
-      <span ng-if="ctrl.item.type ==='Consumable'">            
-        <span class="damage">{{ctrl.item.details.description}}</span>
-      </span>
-      <div ng-repeat="attribute in ctrl.item.original.details.infix_upgrade.attributes">
-        <span class="damage">+ {{attribute.modifier}} {{attribute.attribute}}</span>
-      </div>
-    </div>
-    <br>
-    <div ng-if="ctrl.item.upgrades">
-      <div ng-repeat="upgrade in ctrl.item.upgrades" layout="row">
-        <img ng-src="{{upgrade.icon}}" class="dialogUpgrade {{upgrade.rarity}}Border" />
-        <span>{{upgrade.name}}</span>
-      </div>
-    </div>
-    <div ng-if="ctrl.item.infusions">
-      <div ng-repeat="infusion in ctrl.item.infusions" layout="row">
-        <img ng-src="{{infusion.icon}}" class="dialogUpgrade {{infusion.rarity}}Border" />
-        <span>{{infusion.name}}</span>
-      </div>
-    </div>
-    <br>
-    <div ng-if="ctrl.item.original">
-      Transmutiert
-      <br/> {{ctrl.item.original.name}}
-    </div>
-    <br ng-if="ctrl.item.original">
-    <div>
-      {{ctrl.item.rarity}}
-      <br> {{ctrl.item.details.type}}
-      <br> Erforderliches Level:{{ctrl.item.level}}
-      <br>
-    </div>
+      <span ng-if="(ctrl.item.type ==='Weapon') || (ctrl.item.type ==='Armor')" ng-include="'modules/gw2/view/partials/_armor.html'"></span>
+      <span ng-if="ctrl.item.type ==='UpgradeComponent'" ng-include="'modules/gw2/view/partials/_upgradeComponent.html'"></span>
+      <span ng-if="ctrl.item.type ==='Trinket'" ng-include="'modules/gw2/view/partials/_trinket.html'"></span>
+      <span ng-if="ctrl.item.type ==='Consumable'" ng-include="'modules/gw2/view/partials/_consumable.html'"></span>            
   </md-dialog-content>
 </md-dialog>
 <!--

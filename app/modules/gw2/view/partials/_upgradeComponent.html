@@ -1,0 +1,14 @@
+{{ctrl.item.rarity}}
+<br> {{ctrl.item.details.type}}
+<br>
+<span ng-if="ctrl.item.details.type === 'Rune'">
+  <div ng-repeat="bonus in ctrl.item.details.bonuses" class="buff">
+  ({{$index}})<span>{{bonus}}</span>
+</div>
+</span>
+<span class="damage">
+  <span bind-compiled-html="ctrl.item.details.infix_upgrade.buff.description"></span>
+</span>
+<br>Level: {{ctrl.item.level}}
+<br>
+<span bind-compiled-html="ctrl.item.description"></span>
