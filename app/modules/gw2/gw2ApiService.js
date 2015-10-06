@@ -56,6 +56,9 @@
     }
 
     function accountInfo() {
+      if (gw2Factory.account) {
+        return gw2Factory.account;
+      }
       return $http.get(API_URL + 'v2/account?access_token=' + gw2Factory.apiKey)
         .then(function (account) {
           return account.data;
@@ -82,6 +85,7 @@
           return $q.all(results).then(function () {
             account.guilds = results;
             gw2Factory.guilds = results;
+            gw2Factory.account = account;
             return account;
           });
 
@@ -106,7 +110,6 @@
       if (character.guild) {
         getGuild(character.guild).then(function (guildDetails) {
           character.guild = guildDetails;
-          gw2Factory.characters.push(character);
         });
       }
     }
@@ -141,25 +144,42 @@
 
     function getGuild(guildId) {
       var deferred = $q.defer();
-      $http.get(API_URL + 'v1/guild_details.json?guild_id=' + guildId).success(function (guild) {
-        deferred.resolve(guild);
-      });
+      if (gw2Factory.guilds[guildId]) {
+        deferred.resolve(gw2Factory.guilds[guildId]);
+      }
+      else {
+        $http.get(API_URL + 'v1/guild_details.json?guild_id=' + guildId).success(function (guild) {
+          gw2Factory.guilds[guildId] = guild;
+          gw2Factory.Save();
+          deferred.resolve(guild);
+        });
+      }
       return deferred.promise;
     }
 
     function getItemDetails(itemIds) {
       var deferred = $q.defer();
-      $http.get(API_URL + 'v2/items?lang=de&ids=' + itemIds).success(function (itemDetails) {
-        deferred.resolve(itemDetails);
-      });
+      if (itemIds.length > 0) {
+        $http.get(API_URL + 'v2/items?lang=de&ids=' + itemIds).success(function (itemDetails) {
+          deferred.resolve(itemDetails);
+        });
+      }
+      else {
+        deferred.resolve([]);
+      }
       return deferred.promise;
     }
 
     function getSkinDetails(skinIds) {
       var deferred = $q.defer();
-      $http.get(API_URL + 'v2/skins?lang=de&ids=' + skinIds).success(function (skinDetails) {
-        deferred.resolve(skinDetails);
-      });
+      if (skinIds.length > 0) {
+        $http.get(API_URL + 'v2/skins?lang=de&ids=' + skinIds).success(function (skinDetails) {
+          deferred.resolve(skinDetails);
+        });
+      }
+      else {
+        deferred.resolve([]);
+      }
       return deferred.promise;
     }
 
@@ -224,180 +244,179 @@
             character.equipment.underwater[item.slot] = item;
           }
         });
+        gw2Factory.Save();
         return character;
       });
     }
-  }
 
-  function fillItem(item, itemDetails, skinDetails) {
-    var itemDetail = getDetailsFromArray(item.id, itemDetails);
-    var skinDetail = getDetailsFromArray(item.skin, skinDetails);
-    fillItemWithDetails(itemDetail, skinDetail, item);
-    if (item.upgrades) {
-      var upgrades = [];
-      item.upgrades.forEach(function (upgrade) {
-        itemDetail = getDetailsFromArray(upgrade, itemDetails);
-        upgrades.push(fillItemWithDetails(itemDetail, null, upgrade));
-      });
-      item.upgrades = upgrades;
-    }
-    if (item.infusions) {
-      var infusions = [];
-      item.infusions.forEach(function (infusion) {
-        itemDetail = getDetailsFromArray(infusion, itemDetails);
-        infusions.push(fillItemWithDetails(itemDetail, null, infusion));
-      });
-      item.infusions = infusions;
-    }
-  }
-
-  function fillItemWithDetails(itemDetails, skinDetails, item) {
-    if (skinDetails) {
-      angular.forEach(skinDetails, function (key, value) {
-        if (value === 'name' || value === 'icon') {
-          item[value] = key;
-        }
-      });
-      item.original = {};
-      angular.forEach(itemDetails, function (key, value) {
-        if (!item[value]) {
-          item[value] = key;
-        }
-        else {
-          item.original[value] = key;
-        }
-      });
-    }
-    else {
-      if (!isNaN(item)) {
-        item = {
-          id: item
-        };
+    function fillItem(item, itemDetails, skinDetails) {
+      var itemDetail = getDetailsFromArray(item.id, itemDetails);
+      var skinDetail = getDetailsFromArray(item.skin, skinDetails);
+      
+      //Adding Item Details to Factory
+      if (!gw2Factory.items[item.id]) {
+        gw2Factory.items[item.id] = itemDetail;
+      }      
+      if (itemDetail == null) {
+        itemDetail = gw2Factory.items[item.id];
       }
-      angular.forEach(itemDetails, function (key, value) {
-        item[value] = key;
-      });
-    }
-    return item;
-  }
-
-  function getDetailsFromArray(id, arr) {
-    var returnItem = null;
-    arr.forEach(function (item) {
-      if (item.id == id) {
-        returnItem = item;
+      
+      //Adding Skin Details to Factory
+      if (item.skin) {
+        if (!gw2Factory.skins[item.skin]) {
+          gw2Factory.skins[item.skin] = skinDetail;
+        }
       }
-    });
-    return returnItem;
-  }
+      if (skinDetail == null) {
+        skinDetail = gw2Factory.skins[item.skin];
+      }
 
-  function getAllItemIdsFromCharacter(character) {
-    var ids = [];
-    character.equipment.forEach(function (eq) {
-      ids.push(eq.id);
-      if (eq.upgrades) {
-        eq.upgrades.forEach(function (upgrade) {
-          ids.push(upgrade);
+      fillItemWithDetails(itemDetail, skinDetail, item);
+      itemDetail = null;
+      skinDetail = null;
+      if (item.upgrades) {
+        var upgrades = [];
+        item.upgrades.forEach(function (upgrade) {
+          itemDetail = null;
+          itemDetail = getDetailsFromArray(upgrade, itemDetails);
+          if (!gw2Factory.items[upgrade]) {
+            gw2Factory.items[upgrade] = itemDetail;
+            gw2Factory.Save();
+          }
+          if (itemDetail == null) {
+            itemDetail = gw2Factory.items[upgrade];
+          }
+          upgrades.push(fillItemWithDetails(itemDetail, null, upgrade));
+        });
+        item.upgrades = upgrades;
+      }
+      if (item.infusions) {
+        var infusions = [];
+        item.infusions.forEach(function (infusion) {
+          itemDetail = null;
+          itemDetail = getDetailsFromArray(infusion, itemDetails);
+          if (!gw2Factory.items[infusion]) {
+            gw2Factory.items[infusion] = itemDetail;
+            gw2Factory.Save();
+          }
+          if (itemDetail == null) {
+            itemDetail = gw2Factory.items[infusion];
+          }
+          infusions.push(fillItemWithDetails(itemDetail, null, infusion));
+        });
+        item.infusions = infusions;
+      }
+    }
+
+    function fillItemWithDetails(itemDetails, skinDetails, item) {
+      if (skinDetails) {
+        angular.forEach(skinDetails, function (key, value) {
+          if (value === 'name' || value === 'icon') {
+            item[value] = key;
+          }
+        });
+        item.original = {};
+        angular.forEach(itemDetails, function (key, value) {
+          if (!item[value]) {
+            item[value] = key;
+          }
+          else {
+            item.original[value] = key;
+          }
         });
       }
-      if (eq.infusions) {
-        eq.infusions.forEach(function (infusion) {
-          ids.push(infusion);
+      else {
+        if (!isNaN(item)) {
+          item = {
+            id: item
+          };
+        }
+        angular.forEach(itemDetails, function (key, value) {
+          item[value] = key;
         });
       }
-    });
-    character.bags.forEach(function (bag) {
-      ids.push(bag.id);
-      bag.inventory.forEach(function (item) {
-        if (item) {
-          ids.push(item.id);
-          if (item.upgrades) {
-            item.upgrades.forEach(function (upgrade) {
-              ids.push(upgrade);
-            });
-          }
-          if (item.infusions) {
-            item.infusions.forEach(function (infusion) {
-              ids.push(infusion);
-            });
-          }
+      return item;
+    }
+
+    function getDetailsFromArray(id, arr) {
+      var returnItem = null;
+      arr.forEach(function (item) {
+        if (item.id == id) {
+          returnItem = item;
         }
       });
-    });
-    return ids;
-  }
+      return returnItem;
+    }
 
-  function getAllSkinIdsFromCharacter(character) {
-    var skins = [];
-    character.equipment.forEach(function (eq) {
-      if (eq.skin) {
-        skins.push(eq.skin);
-      }
-    });
-    character.bags.forEach(function (bag) {
-      if (bag.skin) {
-        skins.push(bag.id);
-      }
-
-      bag.inventory.forEach(function (item) {
-        if (item) {
-          if (item.skin) {
-            skins.push(item.skin);
-          }
+    function getAllItemIdsFromCharacter(character) {
+      var ids = [];
+      character.equipment.forEach(function (eq) {
+        push(eq.id);
+        if (eq.upgrades) {
+          eq.upgrades.forEach(function (upgrade) {
+            push(upgrade);
+          });
+        }
+        if (eq.infusions) {
+          eq.infusions.forEach(function (infusion) {
+            push(infusion);
+          });
         }
       });
-    });
-    return skins;
+      character.bags.forEach(function (bag) {
+        push(bag.id);
+        bag.inventory.forEach(function (item) {
+          if (item) {
+            push(item.id);
+            if (item.upgrades) {
+              item.upgrades.forEach(function (upgrade) {
+                push(upgrade);
+              });
+            }
+            if (item.infusions) {
+              item.infusions.forEach(function (infusion) {
+                push(infusion);
+              });
+            }
+          }
+        });
+      });
+      return ids;
+
+      function push(id) {
+        if (ids.indexOf(id) == -1 && gw2Factory.items[id] == null) {
+          ids.push(id);
+        }
+      }
+    }
+
+    function getAllSkinIdsFromCharacter(character) {
+      var skins = [];
+      character.equipment.forEach(function (eq) {
+        if (eq.skin) {
+          push(eq.skin);
+        }
+      });
+      character.bags.forEach(function (bag) {
+        if (bag.skin) {
+          push(bag.id);
+        }
+
+        bag.inventory.forEach(function (item) {
+          if (item) {
+            if (item.skin) {
+              push(item.skin);
+            }
+          }
+        });
+      });
+      return skins;
+      function push(id) {
+        if (skins.indexOf(id) == -1 && gw2Factory.skins[id] == null) {
+          skins.push(id);
+        }
+      }
+    }
   }
 
 })();
-
-
-
-/*
-var results = [];
-      items.forEach(function (item) {
-        getItemDetails(item.id).then(function (itemDetails) {
-          if (item.skin) {
-            getSkinDetails(item.skin)
-              .then(function (skin) {
-                item.details = itemDetails;
-                item.skin = skin;
-                return item;
-              });
-          }
-          else {
-            item.details = itemDetails;
-            item.skin = itemDetails;
-            return item;
-          }
-        }).then(function () {
-          var upgradeResults = [];
-          if (item.upgrades) {
-            item.upgrades.forEach(function (upgrade) {
-              getItemDetails(upgrade).then(function (upgradeDetails) {
-                upgradeResults.push(upgradeDetails);
-              });
-            });
-          }
-          return $q.all(upgradeResults).then(function () {
-            item.upgrades = upgradeResults;
-            results.push(item);
-          });
-        })
-          .then(function () {
-            var infusionResults = [];
-            if (item.infusions) {
-              item.infusions.forEach(function (infusions) {
-                getItemDetails(infusions).then(function (infusionDetails) {
-                  infusionResults.push(infusionDetails);
-                });
-              });
-            }
-            return $q.all(infusionResults).then(function () {
-              item.infusions = infusionResults;
-              results.push(item);
-            });
-          });
-      });
-      */

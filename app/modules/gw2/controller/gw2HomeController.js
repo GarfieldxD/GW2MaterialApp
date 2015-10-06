@@ -2,18 +2,21 @@
 
   angular
     .module('gw2')
-    .controller('homeController', ['$scope', 'sidenavService', 'gw2Factory', 'gw2Api', 'account', gw2HomeController]);
+    .controller('homeController', ['$scope', 'sidenavService', 'gw2Factory', 'gw2Api',  gw2HomeController]);
 
-  function gw2HomeController($scope, sidenavService, gw2Factory, gw2Api,account) {
+  function gw2HomeController($scope, sidenavService, gw2Factory, gw2Api) {
     $scope.ToggleLeft = sidenavService.ToggleSidenav('left');
-    //getAccountInfo();
-    $scope.account = account;
+    getAccountInfo();
 
     function getAccountInfo() {
-      gw2Api.AccountInfo().then(function (account) {
-        gw2Factory.account = account;
-        $scope.account = gw2Factory.account;
-      });
+      if (gw2Factory.apiKey == null || gw2Factory.apiKey.length > 72) {
+        $state.go('app.config');
+      }
+      else {
+        gw2Api.AccountInfo().then(function (account) {
+          $scope.account = gw2Factory.account;
+        });
+      }
     }
 
   }

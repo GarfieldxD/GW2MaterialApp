@@ -50,7 +50,7 @@
             var value = '<span class="">' + gold + '</span> ' + '<img src="/images/gold.png"/> ';
             value += '<span class="">' + silver + '</span> ' + '<img src="/images/silver.png"/> ';
             value += '<span class="">' + copper + '</span> ' + '<img src="/images/copper.png"/> ';
-            
+
             var newElem = $compile(value)(scope.$parent);
             elem.contents().remove();
             elem.append(newElem);
@@ -107,15 +107,42 @@
   }
 
   function gw2Factory(storage, $state) {
+    init();
     var factory = {
-      account: {},
-      characters: []
+      apiKey: storage.GetFromStorage("API-Key"),
+      account: null,
+      characters: null,
+      guilds: storage.GetFromStorage('Guilds'),
+      items: storage.GetFromStorage('Items'),
+      skins: storage.GetFromStorage('Skins'),
+      Save: save
     };
-    factory.apiKey = storage.GetFromStorage("API-Key");
     if (factory.apiKey == null) {
       $state.go('app.config');
     }
     return factory;
+
+    function save() {
+      storage.AddToStorage('API-Key', factory.apiKey);
+      storage.AddToStorage('Guilds', factory.guilds);
+      storage.AddToStorage('Items', factory.items);
+      storage.AddToStorage('Skins', factory.skins);
+    }
+
+    function init() {
+      var items = storage.GetFromStorage('Items');
+      var guilds = storage.GetFromStorage('Guilds');
+      var skins = storage.GetFromStorage('Skins');
+      if (!items) {
+        storage.AddToStorage('Items', {});
+      }
+      if (!guilds) {
+        storage.AddToStorage('Guilds', {});
+      }
+      if (!skins) {
+        storage.AddToStorage('Skins', {});
+      }
+    }
 
   };
 })();

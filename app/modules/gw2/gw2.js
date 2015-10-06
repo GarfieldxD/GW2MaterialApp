@@ -15,16 +15,6 @@
           'content@': {
             template: "<div ui-view></div>",
           }
-        },
-        resolve: {
-          account: function (gw2Api, gw2Factory, $state) {
-            if (gw2Factory.apiKey == null || gw2Factory.apiKey.length > 72) {
-              $state.go('app.config');
-            }
-            else {
-              return gw2Api.AccountInfo();
-            }
-          }
         }
       })
       .state('app.gw2.home', {
