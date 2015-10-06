@@ -1,0 +1,29 @@
+<md-toolbar layout="row" class="md-whiteframe-z2">
+    <div class="md-toolbar-tools">
+        <md-button hide-gt-sm ng-click="ToggleLeft()" class="md-icon-button" aria-label="Menu">
+            <ng-md-icon icon="menu"></ng-md-icon>
+        </md-button>
+        <h2 flex>
+          <center>Geldbörse</center>
+        </h2>
+    </div>
+</md-toolbar>
+<md-content flex class="md-padding" layout="column">
+    <md-content flex>
+        {{}}
+        <md-list flex>
+            <md-list-item ng-repeat="currencie in wallet" class="md-2-line">
+                <img ng-src="{{currencie.icon}}" class="md-avatar" alt="{{currencie.name}}" />
+                <div flex class="md-list-item-text" layout="column">
+                    <h3>
+                        <span ng-if="currencie.id == 1" gold-format gold="currencie.value"></span>
+                        <span ng-if="currencie.id != 1">{{currencie.value | number}}</span>
+                    </h3>
+                    <p>
+                        {{currencie.name}}
+                    </p>
+                </div>
+            </md-list-item>
+        </md-list>
+    </md-content>
+</md-content>

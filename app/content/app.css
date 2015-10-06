@@ -122,20 +122,24 @@ md-toolbar h1 {
 
 
 .badge{
-      display: inline-block;
+    display: inline-block;
     min-width: 10px;
     padding: 3px 7px;
     margin:4px;
     font-size: 12px;
     font-weight: 700;
-    line-height: 1;    
+    line-height: 24px;    
     text-align: center;
     white-space: nowrap;
     vertical-align: middle;
-   background-color: rgb(224, 224, 224);
+    background-color: rgb(224, 224, 224);
     border-radius: 10px;
+    color:#000;
 }
 
+.tabItemFilled{
+  color:#000;
+}
 
 span.name {
   font-weight: bold;
@@ -148,7 +152,7 @@ span.name {
 }
 
 .smallIcon{
-vertical-align: middle;
+  vertical-align: middle;
   height:24px;
   width:24px;
 }
@@ -184,7 +188,6 @@ vertical-align: middle;
 }
 .Exotic {
   color:#FDA500 !important;
-  border:2px solid orange;
 }
 
 .Ascended {
@@ -239,14 +242,17 @@ dialogUpgradeBox{
 }
 
 .inventoryIcon{
+  box-sizing: border-box;
   margin-right:5px;
   margin-bottom:5px;
-  height:48px;
-  width:48px;
+  height:50px;
+  width:50px;
 }
 
 .inventoryItem{  
   position:relative;
+  width:50px;
+  height: 50px;
 }
 
 .inventoryItem span{
@@ -271,4 +277,25 @@ dialogUpgradeBox{
 
 .buff {
     color: #33B5E5;
+}
+
+md-tab-content {
+overflow: auto;
+}
+
+.currencieImage{
+  width:10px;
+  height:10px;
+}
+
+.gold{
+  color: gold;
+}
+
+.copper{
+  color: #C87533;
+}
+
+.silver{
+      color: #ddd;
 }

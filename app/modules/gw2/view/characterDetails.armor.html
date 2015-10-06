@@ -1,56 +1,62 @@
-<md-tabs flex md-dynamic-height md-border-bottom class="md-warn" md-swipe-content="true">
+<md-tabs md-dynamic-height md-border-bottom md-swipe-content="true" md-stretch-tabs="3">
 	<md-tab>
 		<md-tab-label>
 			<section layout="column" layout-align="center center">
-				Waffen
+				<md-icon md-svg-icon="weapons" class="md-accent"></md-icon>
 			</section>
 		</md-tab-label>
-		<md-content flex class="md-padding" layout="row">
-			<div flex>
-				<div layout="column">
-					<div ng-repeat="weapon in character.equipment.weapons.first">
-						<armor-preview armor="weapon"></armor-preview>
-					</div>
-					<div ng-repeat="weapon in character.equipment.weapons.second">
-						<armor-preview armor="weapon"></armor-preview>
-					</div>
-				</div>
-			</div>
-			<div flex>
-				<div layout="column">
-					<armor-preview armor="character.equipment.armor.HelmAquatic"></armor-preview>
-				</div>
-				<div layout="column">
-					<div ng-repeat="weapon in character.equipment.underwater">
-						<armor-preview armor="weapon"></armor-preview>
+		<md-tab-body>
+			<md-content flex class="md-padding" layout="row">
+				<div flex>
+					<div layout="column">
+						<div ng-repeat="weapon in character.equipment.weapons.first">
+							<armor-preview armor="weapon"></armor-preview>
+						</div>
+						<div ng-repeat="weapon in character.equipment.weapons.second">
+							<armor-preview armor="weapon"></armor-preview>
+						</div>
 					</div>
 				</div>
-			</div>
-		</md-content>
+				<div flex>
+					<div layout="column">
+						<armor-preview armor="character.equipment.armor.HelmAquatic"></armor-preview>
+					</div>
+					<div layout="column">
+						<div ng-repeat="weapon in character.equipment.underwater">
+							<armor-preview armor="weapon"></armor-preview>
+						</div>
+					</div>
+				</div>
+			</md-content>
+		</md-tab-body>
 	</md-tab>
 	<md-tab>
 		<md-tab-label>
 			<section layout="column" layout-align="center center">
-				Ausrüstung
+				<md-icon md-svg-icon="armor" class="md-accent"></md-icon>
 			</section>
 		</md-tab-label>
-		<md-content class="md-padding" layout="row" ng-include="'/modules/gw2/view/characterDetails.armor.armor.html'">
-		</md-content>
+		<md-tab-body>
+			<md-content flex class="md-padding" layout="row" ng-include="'/modules/gw2/view/characterDetails.armor.armor.html'">
+			</md-content>
+		</md-tab-body>
 	</md-tab>
 	<md-tab>
 		<md-tab-label>
 			<section layout="column" layout-align="center center">
-				Abbauwekzeuge
+				<md-icon md-svg-icon="tools" class="md-accent"></md-icon>
 			</section>
 		</md-tab-label>
-		<md-content class="md-padding">
-			<h3>Abbauwerkzeuge</h3>
-			<div layout="row" ng-repeat="tool in character.equipment.tools">
-				<img ng-src="{{tool.icon}}" class="{{tool.rarity}}Border itemIcon" />
-				<span style="line-height:48px;">
+		<md-tab-body>
+			<md-content flex class="md-padding">
+				<h3>Abbauwerkzeuge</h3>
+				<div layout="row" ng-repeat="tool in character.equipment.tools">
+					<img ng-src="{{tool.icon}}" class="{{tool.rarity}}Border itemIcon" />
+					<span style="line-height:48px;">
 					{{tool.name}}
 					</span>
-			</div>
-		</md-content>
+				</div>
+			</md-content>
+		</md-tab-body>
 	</md-tab>
 </md-tabs>

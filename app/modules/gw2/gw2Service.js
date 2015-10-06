@@ -15,26 +15,49 @@
           scope.$watch('rawHtml', function (value) {
             if (!value) return;
             value = value.replace(/\r?\n|\r/g, '<br>');
-            if(value.indexOf('<c=') != -1)
-            {
+            if (value.indexOf('<c=') != -1) {
               var indexOfStart = value.indexOf('<c=');
               var indexOfEnd = value.indexOf('</c>') + 4;
-              var gw2Text = value.substring(indexOfStart,indexOfEnd);
-              var cssClass = gw2Text.substring(gw2Text.indexOf('@')+1,gw2Text.indexOf('>'));
+              var gw2Text = value.substring(indexOfStart, indexOfEnd);
+              var cssClass = gw2Text.substring(gw2Text.indexOf('@') + 1, gw2Text.indexOf('>'));
               console.log(cssClass);
-              var myText= gw2Text.replace('=@'+cssClass+'>',' class="'+cssClass+'">');
-              myText= myText.replace('<c','<div');
-              myText= myText.replace('/c>','/div>');
+              var myText = gw2Text.replace('=@' + cssClass + '>', ' class="' + cssClass + '">');
+              myText = myText.replace('<c', '<div');
+              myText = myText.replace('/c>', '/div>');
               console.log(myText);
-              value = value.replace(gw2Text,myText);
+              value = value.replace(gw2Text, myText);
             }
-            var newElem = $compile('<span>'+value+'</span>')(scope.$parent);
+            var newElem = $compile('<span>' + value + '</span>')(scope.$parent);
             elem.contents().remove();
             elem.append(newElem);
           });
         }
       };
     })
+    .directive("goldFormat", function ($compile, $timeout) {
+      return {
+        template: '<div></div>',
+        scope: {
+          gold: '=gold'
+        },
+        link: function (scope, elem, attrs) {
+          scope.$watch('gold', function (value) {
+            var input = scope.gold.toString();
+            var copper = input.substring(input.length - 2, input.length);
+            var silver = input.substring(input.length - 4, input.length - 2);
+            var gold = input.substring(0, input.length - 4);
+
+            var value = '<span class="">' + gold + '</span> ' + '<img src="/images/gold.png"/> ';
+            value += '<span class="">' + silver + '</span> ' + '<img src="/images/silver.png"/> ';
+            value += '<span class="">' + copper + '</span> ' + '<img src="/images/copper.png"/> ';
+            
+            var newElem = $compile(value)(scope.$parent);
+            elem.contents().remove();
+            elem.append(newElem);
+          });
+        }
+      };
+    });
 
   function sidenavService($q, $mdUtil, $mdSidenav, $log) {
     function buildToggler(navID) {
@@ -88,6 +111,10 @@
       account: {},
       characters: []
     };
+    factory.apiKey = storage.GetFromStorage("API-Key");
+    if (factory.apiKey == null) {
+      $state.go('app.config');
+    }
     return factory;
 
   };

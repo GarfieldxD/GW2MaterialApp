@@ -1,7 +1,7 @@
 <md-toolbar layout="row" class="md-whiteframe-z2">
     <div class="md-toolbar-tools">
-        <md-button hide-gt-sm ng-click="ToggleLeft()" class="md-icon-button">
-            <ng-md-icon icon="menu"></ng-md-icon>
+        <md-button hide-gt-sm ui-sref="app.gw2.home" class="md-icon-button">
+            <ng-md-icon icon="keyboard_backspace"></ng-md-icon>
         </md-button>
         <h2 flex>
           <center>Konfiguration</center>
@@ -25,8 +25,8 @@
             </md-input-container>
         </div>
     </form>
-    <md-divider></md-divider>
-    <md-content flex>
+    <md-divider ng-if="tokenInfo"></md-divider>
+    <md-content ng-if="tokenInfo" flex>
         <md-list>
             <md-subheader class="md-no-sticky">Berechtigungen</md-subheader>
             <md-list-item ng-repeat="permission in tokenInfo.permissions">

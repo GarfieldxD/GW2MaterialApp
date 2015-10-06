@@ -4,25 +4,59 @@
   angular.module('gw2')
     .factory('gw2Api', gw2Api);
 
-  function gw2Api($http, gw2Factory, $q) {
+  function gw2Api($http, gw2Factory, $q, $state) {
     var service = {
       TokenInfo: tokenInfo,
       AccountInfo: accountInfo,
       GetCharacter: getCharacter,
-      GetCharacterDetails: getCharacterDetails
+      GetCharacterDetails: getCharacterDetails,
+      GetWallet: getWallet
     };
     return service;
 
     function tokenInfo() {
       var deferred = $q.defer();
-      $http.get(API_URL + 'v2/tokeninfo?access_token=34D6C0CE-2C73-4B49-8A28-59C2508107B83ED4BCEB-5876-45C7-8E18-F21F5E1D5820').success(function (tokenInformation) {
+      $http.get(API_URL + 'v2/tokeninfo?access_token=' + gw2Factory.apiKey).success(function (tokenInformation) {
         deferred.resolve(tokenInformation);
       });
       return deferred.promise;
     }
 
+    function getWallet() {
+      return $http.get(API_URL + 'v2/account/wallet?lang=de&access_token=' + gw2Factory.apiKey)
+        .then(function (account) {
+          return account.data;
+        })
+        .then(function (wallet) {
+          var results = [];
+
+          wallet.forEach(function (item) {
+            results.push($http.get(API_URL + 'v2/currencies/' + item.id));
+          })
+
+          return $q.all(results).then(function (walletDetails) {
+            console.log(walletDetails);
+            wallet.forEach(function (item) {
+              walletDetails.forEach(function (result) {
+                if (item.id == result.data.id) {
+                  angular.forEach(result.data, function (key, value) {
+                    if (value === "name" && item.id === 1) {
+                      item[value] = "Gold";
+                    }
+                    else {
+                      item[value] = key;
+                    }
+                  });
+                }
+              });
+            });
+            return wallet;
+          });
+        });
+    }
+
     function accountInfo() {
-      return $http.get(API_URL + 'v2/account?access_token=34D6C0CE-2C73-4B49-8A28-59C2508107B83ED4BCEB-5876-45C7-8E18-F21F5E1D5820')
+      return $http.get(API_URL + 'v2/account?access_token=' + gw2Factory.apiKey)
         .then(function (account) {
           return account.data;
         })
@@ -55,7 +89,7 @@
     }
 
     function getCharacter() {
-      return $http.get('https://api.guildwars2.com/v2/characters?page=0&page_size=200&access_token=34D6C0CE-2C73-4B49-8A28-59C2508107B83ED4BCEB-5876-45C7-8E18-F21F5E1D5820')
+      return $http.get('https://api.guildwars2.com/v2/characters?page=0&page_size=200&access_token=' + gw2Factory.apiKey)
         .then(function (result) {
           return result.data;
         })
@@ -79,7 +113,7 @@
 
 
     function getCharacterDetails(characterName) {
-      return $http.get(API_URL + 'v2/characters/' + characterName + '?lang=de&access_token=34D6C0CE-2C73-4B49-8A28-59C2508107B83ED4BCEB-5876-45C7-8E18-F21F5E1D5820')
+      return $http.get(API_URL + 'v2/characters/' + characterName + '?lang=de&access_token=' + gw2Factory.apiKey)
         .then(function (data) {
           var characterDetails = data.data;
           characterDetails.age = parseInt(characterDetails.age / 3600);
@@ -149,7 +183,7 @@
       };
       var itemDetails = getItemDetails(ids.toString());
       var skinDetails = getSkinDetails(skins.toString());
-      if (character.guild) {
+      if (!character.guild.guild_name) {
         getGuild(character.guild).then(function (guildDetails) {
           character.guild = guildDetails;
         });
@@ -174,7 +208,6 @@
             character.equipment.armor[item.slot] = item;
           }
           if (item.slot == 'Accessory1' || item.slot == 'Accessory2' || item.slot == 'Ring1' || item.slot == 'Ring2' || item.slot == 'Amulet' || item.slot == 'Backpack') {
-            console.log(item);
             fillItem(item, details[0], details[1]);
             character.equipment.trinkets[item.slot] = item;
           }
@@ -215,7 +248,7 @@
         infusions.push(fillItemWithDetails(itemDetail, null, infusion));
       });
       item.infusions = infusions;
-    }    
+    }
   }
 
   function fillItemWithDetails(itemDetails, skinDetails, item) {
@@ -225,7 +258,7 @@
           item[value] = key;
         }
       });
-      item.original = {};      
+      item.original = {};
       angular.forEach(itemDetails, function (key, value) {
         if (!item[value]) {
           item[value] = key;

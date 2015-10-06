@@ -9,7 +9,6 @@
     $scope.ShowItemDialog = showItemDialog;
     //getCharacter($stateParams.characterName);
     $scope.character = character;
-    console.log(character);
 
     function getCharacter(name) {
       gw2Api.GetCharacterDetails(name).then(function (data) {

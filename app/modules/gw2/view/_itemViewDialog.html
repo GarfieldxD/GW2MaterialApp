@@ -2,13 +2,15 @@
   <md-dialog-content style="background:rgba(0,0,0,.9);color:#fff">
     <div layout="row">
       <img ng-src="{{ctrl.item.icon}}" class="{{ctrl.item.rarity}}Border upgrade" />
-      <strong class="item-name"><span class="{{ctrl.item.rarity}}">{{ctrl.item.name}}</span></strong>
+      <strong class="item-name"><span class="{{ctrl.item.rarity}}"><span ng-if="ctrl.item.count > 1">{{ctrl.item.count}}</span> {{ctrl.item.name}}</span></strong>
     </div>
     <div>
       <span ng-if="(ctrl.item.type ==='Weapon') || (ctrl.item.type ==='Armor')" ng-include="'modules/gw2/view/partials/_armor.html'"></span>
       <span ng-if="ctrl.item.type ==='UpgradeComponent'" ng-include="'modules/gw2/view/partials/_upgradeComponent.html'"></span>
       <span ng-if="ctrl.item.type ==='Trinket'" ng-include="'modules/gw2/view/partials/_trinket.html'"></span>
-      <span ng-if="ctrl.item.type ==='Consumable'" ng-include="'modules/gw2/view/partials/_consumable.html'"></span>            
+      <span ng-if="ctrl.item.type ==='Consumable'" ng-include="'modules/gw2/view/partials/_consumable.html'"></span>
+      <span ng-if="ctrl.item.type ==='Gizmo'" ng-include="'modules/gw2/view/partials/_gizmo.html'"></span>
+      <span ng-if="ctrl.item.type ==='Tool'" ng-include="'modules/gw2/view/partials/_tool.html'"></span>            
   </md-dialog-content>
 </md-dialog>
 <!--

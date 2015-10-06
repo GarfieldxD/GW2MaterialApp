@@ -1,12 +1,14 @@
-<div ng-repeat="bag in character.bags">
-	<div layout="column">
-		<p>{{bag.details.name}}</p>
-	</div>
-	<div style="position:relative">
-		<span ng-click="ShowItemDialog(item)" ng-repeat="item in bag.inventory track by $index" class="inventoryItem">
-			<img ng-src="{{item.icon}}" class="{{item.rarity}}Border inventoryIcon"
-					/>					
+<md-content flex>
+	<div ng-repeat="bag in character.bags">
+		<div layout="row">
+			<img class="itemIcon" src="{{bag.icon}}" />
+			<strong flex>{{bag.name}}</strong>
+		</div>
+		<div style="position:relative">
+			<span ng-click="ShowItemDialog(item)" ng-repeat="item in bag.inventory track by $index" class="inventoryItem">
+			<img ng-src="{{item.icon}}" class="{{item.rarity}}Border inventoryIcon"/>
 					<span>{{item.count}}</span>
-		</span>
+			</span>
+		</div>
 	</div>
-</div>
+</md-content>

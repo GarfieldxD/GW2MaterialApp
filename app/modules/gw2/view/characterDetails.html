@@ -11,46 +11,39 @@
     </div>
 </md-toolbar>
 <md-content flex layout="column">
-    <md-tabs md-dynamic-height md-border-bottom class="md-accent">
+    <md-tabs md-dynamic-height md-border-bottom class="md-accent" md-stretch-tabs="3">
         <md-tab>
             <md-tab-label>
                 <section layout="column" layout-align="center center">
-                    <md-icon md-svg-icon="death" class="md-accent"></md-icon>
+                    <md-icon md-svg-icon="general" class="tabItemFilled"></md-icon>
                 </section>
             </md-tab-label>
-            <md-content ng-include="'/modules/gw2/view/characterDetails.general.html'">
-            </md-content>
+            <md-tab-body>
+                <md-content flex class="md-padding" ng-include="'/modules/gw2/view/characterDetails.general.html'">
+                </md-content>
+            </md-tab-body>
         </md-tab>
         <md-tab>
             <md-tab-label>
                 <section layout="column" layout-align="center center">
-                    <md-icon md-svg-icon="armor" class="md-accent"></md-icon>
+                    <md-icon md-svg-icon="equipment" class="tabItemFilled"></md-icon>
                 </section>
             </md-tab-label>
-            <md-content ng-include="'/modules/gw2/view/characterDetails.armor.html'">
-            </md-content>
+            <md-tab-body>
+                <md-content flex ng-include="'/modules/gw2/view/characterDetails.armor.html'">
+                </md-content>
+            </md-tab-body>
         </md-tab>
         <md-tab>
             <md-tab-label>
                 <section layout="column" layout-align="center center">
-                    <md-icon md-svg-icon="inventory" class="md-accent"></md-icon>
+                    <md-icon md-svg-icon="inventory" class="tabItemFilled"></md-icon>
                 </section>
             </md-tab-label>
-            <md-content ng-include="'/modules/gw2/view/characterDetails.inventory.html'">
-            </md-content>
+            <md-tab-body>
+                <md-content layout="column" Class="md-padding" ng-include="'/modules/gw2/view/characterDetails.inventory.html'">
+                </md-content>
+            </md-tab-body>
         </md-tab>
     </md-tabs>
 </md-content>
-
-<!--<md-list flex>
-    <md-list-item ng-repeat="" class="md-3-line">
-        <div flex class="md-list-item-text" layout="column">
-            <p>
-                <span ng-repeat="crafting in char.crafting | orderBy:'active' :true" ng-class="{'inactive':crafting.active == false}">                            
-                            <img ng-src="images/disciplines/{{crafting.discipline}}.png" class="smallIcon" alt="{{crafting.discipline}}" />    
-                            {{crafting.rating}}
-                        </span>
-            </p>
-        </div>
-    </md-list-item>
-</md-list>-->

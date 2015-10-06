@@ -3,7 +3,7 @@
 
   // Prepare the 'users' module for subsequent registration of controllers and delegates
   angular.module('gw2', ['ngMaterial']).config(function ($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise("/gw2/home");
+    $urlRouterProvider.otherwise("/config");
     $stateProvider
       .state('app.gw2', {
         abstract: true,
@@ -17,8 +17,13 @@
           }
         },
         resolve: {
-          account: function (gw2Api) {
-            return gw2Api.AccountInfo();
+          account: function (gw2Api, gw2Factory, $state) {
+            if (gw2Factory.apiKey == null || gw2Factory.apiKey.length > 72) {
+              $state.go('app.config');
+            }
+            else {
+              return gw2Api.AccountInfo();
+            }
           }
         }
       })
@@ -31,6 +36,20 @@
           }
         }
       })
+      .state('app.gw2.wallet', {
+        url: '/gw2/wallet',
+        views: {
+          'content@': {
+            templateUrl: "modules/gw2/view/wallet.html",
+            controller: "walletController"
+          },
+        },
+        resolve: {
+          wallet: function (gw2Api) {
+            return gw2Api.GetWallet();
+          }
+        }
+      })
       .state('app.gw2.character', {
         url: '/gw2/character',
         views: {
@@ -40,7 +59,10 @@
           }
         },
         resolve: {
-          character: function (gw2Api) {
+          character: function (gw2Api, gw2Factory, $state) {
+            if (gw2Factory.apiKey == null) {
+              $state.go('app.gw2.config');
+            }
             return gw2Api.GetCharacter();
           }
         }
@@ -54,15 +76,14 @@
           }
         },
         resolve: {
-          character: function (gw2Api,$stateParams) {
+          character: function (gw2Api, $stateParams) {
             var help = gw2Api.GetCharacterDetails($stateParams.characterName);
-            console.log(help);
             return help;
           }
         }
       })
-      .state('app.gw2.config', {
-        url: '/gw2/config',
+      .state('app.config', {
+        url: '/config',
         views: {
           'content@': {
             templateUrl: "modules/gw2/view/config.html",

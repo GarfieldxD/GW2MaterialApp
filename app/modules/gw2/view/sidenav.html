@@ -11,14 +11,20 @@
     </md-list-item>
     <md-list-item>
       <md-button ui-sref="app.gw2.character" ng-click="ToggleLeft();selected = 'character';" class="menuItem" ng-class="{'selected' : selected === 'character' }">
-        <ng-md-icon class="menuIcon" icon="settings" ng-class="{'selected' : selected === 'character' }" size="50"></ng-md-icon>
+        <md-icon md-svg-icon="character" class="menuIcon" size="50"></md-icon>
         Charaktere
+      </md-button>
+    </md-list-item>
+    <md-list-item>
+      <md-button ui-sref="app.gw2.wallet" ng-click="ToggleLeft();selected = 'wallet';" class="menuItem" ng-class="{'selected' : selected === 'wallet' }">
+        <md-icon md-svg-icon="cash" class="menuIcon" size="50"></md-icon>
+        Geldbörse
       </md-button>
     </md-list-item>
     <md-divider></md-divider>
     <md-list-item>
-      <md-button ui-sref="app.gw2.config" ng-click="ToggleLeft();selected = 'Settings';" class="menuItem" ng-class="{'selected' : selected === 'Settings' }">
-        <ng-md-icon class="menuIcon" icon="settings" ng-class="{'selected' : selected === 'Srttings' }" size="50"></ng-md-icon>
+      <md-button ui-sref="app.config">
+        <ng-md-icon class="menuIcon" icon="settings" size="50"></ng-md-icon>
         Konfiguration
       </md-button>
     </md-list-item>
