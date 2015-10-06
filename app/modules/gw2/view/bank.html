@@ -1,0 +1,28 @@
+<md-toolbar layout="row" class="md-whiteframe-z2">
+	<div class="md-toolbar-tools">
+		<md-button hide-gt-sm ng-click="ToggleLeft()" class="md-icon-button" aria-label="Menu">
+			<ng-md-icon icon="menu"></ng-md-icon>
+		</md-button>
+		<h2 flex>
+          <center>                    
+			<strong>Bank</strong>	
+        </center>
+        </h2>
+	</div>
+</md-toolbar>
+<md-content flex class="md-padding" layout="column" style="height:100%;">
+	<md-input-container class="md-accent">
+		<label>Suche</label>
+		<input type="text" ng-change="CheckTokenRights()" name="search" ng-model="search">
+	</md-input-container>
+	<md-content>
+		<div flex ng-repeat="slot in bank">
+			<div style="position:relative">
+				<span ng-click="ShowItemDialog(item)" ng-repeat="item in slot  | filter:{name: search} track by $index" class="inventoryItem">
+			<img ng-src="{{item.icon}}" class="{{item.rarity}}Border inventoryIcon"/>
+					<span>{{item.count}}</span>
+				</span>
+			</div>
+		</div>
+	</md-content>
+</md-content>

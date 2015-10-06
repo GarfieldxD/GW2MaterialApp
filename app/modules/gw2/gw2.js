@@ -26,6 +26,15 @@
           }
         }
       })
+      .state('app.gw2.bank', {
+        url: '/gw2/bank',
+        views: {
+          'content@': {
+            templateUrl: "modules/gw2/view/bank.html",
+            controller: "bankController"
+          },
+        }
+      })
       .state('app.gw2.wallet', {
         url: '/gw2/wallet',
         views: {

@@ -10,7 +10,8 @@
       AccountInfo: accountInfo,
       GetCharacter: getCharacter,
       GetCharacterDetails: getCharacterDetails,
-      GetWallet: getWallet
+      GetWallet: getWallet,
+      GetBank: getBank
     };
     return service;
 
@@ -20,6 +21,63 @@
         deferred.resolve(tokenInformation);
       });
       return deferred.promise;
+    }
+
+    function getBank() {
+      return $http.get(API_URL + 'v2/account/bank?lang=de&access_token=' + gw2Factory.apiKey)
+        .then(function (data) {
+          var ids = [];
+          var skins = [];
+          data.data.forEach(function (item) {
+            if (item) {
+              if (ids.indexOf(item.id) == -1 && gw2Factory.items[item.id] == null) {
+                ids.push(item.id);
+              }
+              if (item.skin) {
+                if (skins.indexOf(item.skin) == -1 && gw2Factory.skins[item.skin] == null) {
+                  ids.push(item.skin);
+                }
+              }
+              if (item.upgrades) {
+                item.upgrades.forEach(function (upgrade) {
+                  if (ids.indexOf(upgrade) == -1 && gw2Factory.items[upgrade] == null) {
+                    ids.push(upgrade);
+                  }
+                });
+              }
+              if (item.infusions) {
+                item.infusions.forEach(function (infusion) {
+                  if (ids.indexOf(infusion) == -1 && gw2Factory.items[infusion] == null) {
+                    ids.push(infusion);
+                  }
+                });
+              }
+            }
+          });
+          var idResults = getItemDetails(ids.toString());
+          var skinResults = getSkinDetails(skins.toString());
+
+          return $q.all([idResults, skinResults]).then(function (results) {
+            var bank = [];
+            var slot = 0;
+            var counter = 0;
+            data.data.forEach(function (item) {
+              if (item) {
+                fillItem(item, results[0], results[1]);
+              }
+              if (!bank[slot]) {
+                bank[slot] = [];
+              }
+              bank[slot].push(item);
+              counter++;
+              if (counter == 30) {
+                counter = 0;
+                slot++;
+              }
+            });
+            return bank;
+          });
+        });
     }
 
     function getWallet() {
@@ -256,7 +314,7 @@
       //Adding Item Details to Factory
       if (!gw2Factory.items[item.id]) {
         gw2Factory.items[item.id] = itemDetail;
-      }      
+      }
       if (itemDetail == null) {
         itemDetail = gw2Factory.items[item.id];
       }

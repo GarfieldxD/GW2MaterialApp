@@ -1,5 +1,4 @@
 (function () {
-console.log("haha");
   angular
     .module('gw2')
     .controller('walletController', ['$scope', 'sidenavService', 'gw2Factory', 'gw2Api', '$state', 'wallet', gw2WalletController]);

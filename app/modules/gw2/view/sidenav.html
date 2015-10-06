@@ -17,8 +17,14 @@
     </md-list-item>
     <md-list-item>
       <md-button ui-sref="app.gw2.wallet" ng-click="ToggleLeft();selected = 'wallet';" class="menuItem" ng-class="{'selected' : selected === 'wallet' }">
-        <md-icon md-svg-icon="cash" class="menuIcon" size="50"></md-icon>
+        <md-icon md-svg-icon="wallet" class="menuIcon" size="50"></md-icon>
         Geldbörse
+      </md-button>
+    </md-list-item>
+    <md-list-item>
+      <md-button ui-sref="app.gw2.bank" ng-click="ToggleLeft();selected = 'bank';" class="menuItem" ng-class="{'selected' : selected === 'bank' }">
+        <md-icon md-svg-icon="bank" class="menuIcon" size="50"></md-icon>
+        Bank
       </md-button>
     </md-list-item>
     <md-divider></md-divider>
