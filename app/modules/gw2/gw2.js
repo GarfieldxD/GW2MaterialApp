@@ -35,6 +35,15 @@
           },
         }
       })
+      .state('app.gw2.materials', {
+        url: '/gw2/materials',
+        views: {
+          'content@': {
+            templateUrl: "modules/gw2/view/materials.html",
+            controller: "materialsController"
+          },
+        }
+      })
       .state('app.gw2.wallet', {
         url: '/gw2/wallet',
         views: {
@@ -42,11 +51,6 @@
             templateUrl: "modules/gw2/view/wallet.html",
             controller: "walletController"
           },
-        },
-        resolve: {
-          wallet: function (gw2Api) {
-            return gw2Api.GetWallet();
-          }
         }
       })
       .state('app.gw2.character', {
@@ -56,14 +60,6 @@
             templateUrl: "modules/gw2/view/character.html",
             controller: "characterController"
           }
-        },
-        resolve: {
-          character: function (gw2Api, gw2Factory, $state) {
-            if (gw2Factory.apiKey == null) {
-              $state.go('app.gw2.config');
-            }
-            return gw2Api.GetCharacter();
-          }
         }
       })
       .state('app.gw2.character.detail', {
@@ -72,12 +68,6 @@
           'content@': {
             templateUrl: "modules/gw2/view/characterDetails.html",
             controller: "characterDetailController"
-          }
-        },
-        resolve: {
-          character: function (gw2Api, $stateParams) {
-            var help = gw2Api.GetCharacterDetails($stateParams.characterName);
-            return help;
           }
         }
       })

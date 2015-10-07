@@ -27,6 +27,12 @@
         Bank
       </md-button>
     </md-list-item>
+    <md-list-item>
+      <md-button ui-sref="app.gw2.materials" ng-click="ToggleLeft();selected = 'materials';" class="menuItem" ng-class="{'selected' : selected === 'materials' }">
+        <md-icon md-svg-icon="crafting" class="menuIcon" size="50"></md-icon>
+        Sammlung
+      </md-button>
+    </md-list-item>
     <md-divider></md-divider>
     <md-list-item>
       <md-button ui-sref="app.config">

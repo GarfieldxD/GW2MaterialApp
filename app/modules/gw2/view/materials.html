@@ -1,0 +1,26 @@
+<md-toolbar layout="row" class="md-whiteframe-z2">
+	<div class="md-toolbar-tools">
+		<md-button ng-click="ToggleLeft()" class="md-icon-button" aria-label="Menu">
+			<ng-md-icon icon="menu"></ng-md-icon>
+		</md-button>
+		<h2 flex>
+          <center>                    
+			<strong>Sammlung</strong>	
+        </center>
+        </h2>
+	</div>
+</md-toolbar>
+<md-content flex class="md-padding" layout="column" style="height:100%;">
+	<div ng-repeat="materialCategorie in materials">
+		<div layout="row">
+			<center><strong flex>{{materialCategorie.name}}</strong></center>
+		</div>
+		<div style="position:relative">
+			<span ng-click="ShowItemDialog(item)" ng-repeat="item in materialCategorie.items track by $index" class="inventoryItem" ng-class="{'notOwned': item.count == 0}">
+				<img ng-src="{{item.icon}}" class="{{item.rarity}}Border inventoryIcon"/>
+				<img ng-if="item == null" class="itemEmpty inventoryIcon"/>	
+				<span>{{item.count}}</span>
+			</span>
+		</div>
+	</div>
+</md-content>

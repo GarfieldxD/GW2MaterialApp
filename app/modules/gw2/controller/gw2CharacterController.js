@@ -2,18 +2,18 @@
 
   angular
     .module('gw2')
-    .controller('characterController', ['$scope', 'sidenavService', 'gw2Factory', 'gw2Api', '$state', 'character', gw2HomeController]);
+    .controller('characterController', ['$scope', 'sidenavService', 'gw2Factory', 'gw2Api', '$state', gw2HomeController]);
 
-  function gw2HomeController($scope, sidenavService, gw2Factory, gw2Api, $state,character) {
+  function gw2HomeController($scope, sidenavService, gw2Factory, gw2Api, $state) {
     $scope.ToggleLeft = sidenavService.ToggleSidenav('left');
-    $scope.goToState = goToState;
-    //$scope.character = gw2Factory.characters;
-    $scope.character = character;
-    console.log(character);    
-    //getCharacter();
+    $scope.goToState = goToState;    
+    getCharacter();
 
     function getCharacter() {
-      gw2Api.GetCharacter();
+      gw2Api.GetCharacter().then(function (character) {
+        $scope.character = character;
+      });
+
     }
 
     function goToState(char) {

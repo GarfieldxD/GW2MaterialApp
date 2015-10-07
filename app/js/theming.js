@@ -14,7 +14,8 @@
                 .icon("wallet", "./content/svg/gw2/wallet.svg", 512)
                 .icon("bank", "./content/svg/gw2/bank.svg", 512)
                 .icon("character", "./content/svg/gw2/character.svg", 512)
-                .icon("general", "./content/svg/gw2/general.svg", 512);
+                .icon("general", "./content/svg/gw2/general.svg", 512)
+                .icon("crafting", "./content/svg/gw2/crafting.svg", 512);
 
 
 

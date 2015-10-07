@@ -11,7 +11,8 @@
       GetCharacter: getCharacter,
       GetCharacterDetails: getCharacterDetails,
       GetWallet: getWallet,
-      GetBank: getBank
+      GetBank: getBank,
+      GetMaterials: getMaterials
     };
     return service;
 
@@ -80,6 +81,85 @@
         });
     }
 
+    function getMaterials() {
+      return $http.get(API_URL + 'v2/account/materials?lang=de&access_token=' + gw2Factory.apiKey)
+        .then(function (data) {
+          var ownedMaterials = data.data;
+          var materials = [];
+          return $http.get(API_URL + 'v2/materials')
+            .then(function (data) {
+              var results = [];
+              data.data.forEach(function (categorie) {
+                results.push($http.get(API_URL + 'v2/materials/' + categorie));
+              });
+
+              return $q.all(results).then(function (results) {
+                var materialInformation = [];
+                results.forEach(function (result) {
+                  materialInformation.push(result.data);
+                });
+                return materialInformation;
+              });
+            })
+            .then(function (materialInformation) {
+              var results = [];
+              materialInformation.forEach(function (item) {
+                var ids = [];
+                item.items.forEach(function (itemId) {
+                  if (!gw2Factory.items[itemId]) {
+                    ids.push(itemId);
+                  }
+                });
+                if (ids.length > 0) {
+                  results.push(getItemDetails(ids.toString()));
+                }
+              });
+              return $q.all(results).then(function (results) {
+                var itemDetails = [];
+                results.forEach(function (result) {
+                  result.forEach(function (itemDetail) {
+                    itemDetails.push(itemDetail);
+                  });
+                });
+                var help = [];
+                var index = 0;
+                materialInformation.forEach(function (item) {
+                  var newMaterialCategorie = {};
+                  angular.forEach(item, function (key, value) {
+                    newMaterialCategorie[value] = key;
+                  });
+                  newMaterialCategorie.items = [];
+                  item.items.forEach(function (itemId) {
+                    itemId = {
+                      id: itemId
+                    };
+                    fillItem(itemId, itemDetails, []);
+                    newMaterialCategorie.items.push(itemId);
+                  });
+                  help.push(newMaterialCategorie);
+                  index++;
+                });
+                gw2Factory.Save();
+                return help;
+              });
+            })
+            .then(function(materialCategories){
+              materialCategories.forEach(function(categorie){
+                categorie.items.forEach(function(item){
+                  ownedMaterials.forEach(function(ownedMaterial){
+                    if(item.id == ownedMaterial.id)
+                    {
+                      item.count = ownedMaterial.count;
+                    }
+                  });
+                });
+              });
+              console.log(materialCategories);
+              return materialCategories;
+            });
+        });
+    }
+
     function getWallet() {
       return $http.get(API_URL + 'v2/account/wallet?lang=de&access_token=' + gw2Factory.apiKey)
         .then(function (account) {
@@ -115,7 +195,9 @@
 
     function accountInfo() {
       if (gw2Factory.account) {
-        return gw2Factory.account;
+        return new Promise(function (resolve) {
+          resolve(gw2Factory.account);
+        });;
       }
       return $http.get(API_URL + 'v2/account?access_token=' + gw2Factory.apiKey)
         .then(function (account) {

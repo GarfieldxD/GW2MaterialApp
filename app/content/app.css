@@ -303,3 +303,20 @@ overflow: auto;
 md-input-container label{
   color:#fff;
 }
+
+.itemEmpty{  
+    border: 1px solid #000;
+}
+
+.lock-size {
+  min-width: 100px;
+  min-height: 100px;
+  width: 100px;
+  height: 100px;
+  margin-left: auto;
+  margin-right: auto; 
+}
+
+.notOwned {
+  opacity: 0.2;
+}
