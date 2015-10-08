@@ -1,0 +1,38 @@
+<md-toolbar layout="row" class="md-whiteframe-z2">
+	<div class="md-toolbar-tools">
+		<md-button ng-click="ToggleLeft()" class="md-icon-button" aria-label="Menu">
+			<ng-md-icon icon="menu"></ng-md-icon>
+		</md-button>
+		<span flex></span>
+		<h2>
+          <center>                    
+			<strong>Skins</strong>	
+        </center>
+        </h2>
+		<span flex></span>
+		<span ng-if="selectedCategorie && !selectedCategorie.Coat">
+			{{(selectedCategorie | filter: {'owned':true}).length}} von {{selectedCategorie.length}}
+		</span>
+	</div>
+</md-toolbar>
+<md-progress-linear ng-show="isLoading" md-mode="indeterminate"></md-progress-linear>
+<md-content flex class="md-padding" layout="column">
+	<md-select placeholder="Skin Kategorie" ng-model="selectedCategorie">
+		<md-option ng-value="value" ng-repeat="(key,value) in skins">{{key}}</md-option>
+	</md-select>
+	<md-content flex>
+		<div style="position:relative">
+			<span ng-if="!selectedCategorie.Coat" ng-click="ShowItemDialog(item)" ng-repeat="item in selectedCategorie" class="inventoryItem" ng-class="{'notOwned': item.owned == false}">
+				<img ng-src="{{item.icon}}" class="{{item.rarity}}Border inventoryIcon"/>				
+			</span>
+			<span ng-if="selectedCategorie.Coat" ng-repeat="(key,value) in selectedCategorie">
+				<div layout="row">
+					<center><strong flex>{{key}}</strong></center>
+				</div>
+				<span ng-repeat="item in value" ng-click="ShowItemDialog(item)" class="inventoryItem" ng-class="{'notOwned': item.owned == false}">
+					<img ng-src="{{item.icon}}" class="{{item.rarity}}Border inventoryIcon"/>
+				</span>
+			</span>
+		</div>
+	</md-content>
+</md-content>

@@ -2,7 +2,7 @@
 
   angular
     .module('gw2')
-    .controller('homeController', ['$scope', 'sidenavService', 'gw2Factory', 'gw2Api',  gw2HomeController]);
+    .controller('homeController', ['$scope', 'sidenavService', 'gw2Factory', 'gw2Api', gw2HomeController]);
 
   function gw2HomeController($scope, sidenavService, gw2Factory, gw2Api) {
     $scope.ToggleLeft = sidenavService.ToggleSidenav('left');
@@ -13,7 +13,9 @@
         $state.go('app.config');
       }
       else {
+        $scope.isLoading = true;
         gw2Api.AccountInfo().then(function (account) {
+          $scope.isLoading = false;
           $scope.account = gw2Factory.account;
         });
       }

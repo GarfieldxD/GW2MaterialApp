@@ -1,0 +1,48 @@
+<div layout="row">
+	<div>
+		<pvp-rank rank="stats.pvp_rank"></pvp-rank>
+	</div>
+	<div flex layout="column">
+		<div flex></div>
+		<div layout="row">
+			<div flex layout="column">
+				<center>Wins</center>
+				<center>{{stats.wins}} ({{stats.winPercentage |number:0}}%)</center>
+			</div>
+			<div flex layout="column">
+				<center>Losses</center>
+				<center>{{stats.losses}} ({{stats.lossPercentage |number:0}}%)</center>
+			</div>
+		</div>
+		<div class="progress-bar">
+			<div class="wins" style="width: {{stats.winPercentage}}%"></div>
+			<div class="losses" style="width: {{stats.lossPercentage}}%"></div>
+		</div>
+		<div style="margin-top:5px">
+			<center>Total {{stats.total}}</center>
+		</div>
+		<div flex></div>
+	</div>
+</div>
+<md-divider></md-divider>
+<md-list flex>
+	<md-list-item class="md-2-line" ng-repeat="(profession,matches) in stats.professions">
+		<img ng-src="images/{{profession}}_icon.png" class="md-avatar" alt="{{profession}}" />
+		<div class="md-list-item-text">
+			<div layout="row">
+				<div flex layout="column">
+					<center>Wins</center>
+					<center>{{matches.wins}} ({{matches.winPercentage |number:0}}%)</center>
+				</div>
+				<div flex layout="column">
+					<center>Losses</center>
+					<center>{{matches.losses}} ({{matches.lossPercentage |number:0}}%)</center>
+				</div>
+			</div>
+			<div class="progress-bar">
+				<div class="wins" style="width: {{matches.winPercentage}}%"></div>
+				<div class="losses" style="width: {{matches.lossPercentage}}%"></div>
+			</div>
+		</div>
+	</md-list-item>
+</md-list>

@@ -44,6 +44,33 @@
           },
         }
       })
+      .state('app.gw2.crafting', {
+        url: '/gw2/crafting',
+        views: {
+          'content@': {
+            templateUrl: "modules/gw2/view/crafting.html",
+            controller: "craftingController"
+          },
+        }
+      })
+      .state('app.gw2.skins', {
+        url: '/gw2/skins',
+        views: {
+          'content@': {
+            templateUrl: "modules/gw2/view/skins.html",
+            controller: "skinsController"
+          },
+        }
+      })
+      .state('app.gw2.pvp', {
+        url: '/gw2/pvp',
+        views: {
+          'content@': {
+            templateUrl: "modules/gw2/view/pvp.html",
+            controller: "pvpController"
+          },
+        }
+      })
       .state('app.gw2.wallet', {
         url: '/gw2/wallet',
         views: {

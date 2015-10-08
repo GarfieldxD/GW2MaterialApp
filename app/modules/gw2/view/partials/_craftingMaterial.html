@@ -1,9 +1,8 @@
-<br>
-<div>
-        {{ctrl.item.rarity}}
-        <br> {{ctrl.item.details.type}}
+<div>        
+        <div ng-if="ctrl.item.details.type">{{ctrl.item.details.type}}</div>
         <br> Level: {{ctrl.item.level}}
-        <br>
-        <br>
-        <span bind-compiled-html="ctrl.item.description"></span>
+        <div ng-if="ctrl.item.description">
+                <br>
+                <span bind-compiled-html="ctrl.item.description"></span>
+        </div>
 </div>

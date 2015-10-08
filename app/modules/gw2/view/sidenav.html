@@ -33,6 +33,18 @@
         Sammlung
       </md-button>
     </md-list-item>
+    <md-list-item>
+      <md-button ui-sref="app.gw2.skins" ng-click="ToggleLeft();selected = 'skins';" class="menuItem" ng-class="{'selected' : selected === 'skins' }">
+        <md-icon md-svg-icon="armor" class="menuIcon" size="50"></md-icon>
+        Skins
+      </md-button>
+    </md-list-item>
+    <md-list-item>
+      <md-button ui-sref="app.gw2.pvp" ng-click="ToggleLeft();selected = 'pvp';" class="menuItem" ng-class="{'selected' : selected === 'pvp' }">
+        <md-icon md-svg-icon="weapons" class="menuIcon" size="50"></md-icon>
+        PvP
+      </md-button>
+    </md-list-item>
     <md-divider></md-divider>
     <md-list-item>
       <md-button ui-sref="app.config">

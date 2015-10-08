@@ -308,15 +308,45 @@ md-input-container label{
     border: 1px solid #000;
 }
 
-.lock-size {
-  min-width: 100px;
-  min-height: 100px;
-  width: 100px;
-  height: 100px;
-  margin-left: auto;
-  margin-right: auto; 
-}
-
 .notOwned {
   opacity: 0.2;
+}
+
+.progress-bar{
+    line-height: 0;
+    font-size: 0;
+    margin: 0 0;
+    max-width: 100%;
+}
+
+.progress-bar>div {
+    display: inline-block;
+    height: 5px;
+}
+
+.progress-bar>div.wins{
+  background: #690;
+}
+
+.progress-bar>div.losses{
+     background: #C00;
+}
+
+.progress-bar>div.red{
+  background: #C00;
+}
+
+.progress-bar>div.blue{
+     background: #09C;
+}
+
+.Red{
+  color:#C00;
+}
+.Blue{
+  color:#09c;
+}
+
+.progress-bar>div.left{
+     background: rgba(250,250,250,0.2);
 }

@@ -8,10 +8,15 @@
         </h2>
     </div>
 </md-toolbar>
+<md-progress-linear ng-show="isLoading" md-mode="indeterminate"></md-progress-linear>
 <md-content flex class="md-padding" layout="column">
+    <md-input-container>
+        <label>Suche</label>
+        <input ng-model="search"/>
+    </md-input-container>
     <md-content flex>        
         <md-list flex>
-            <md-list-item ng-repeat="char in character" class="md-2-line" ng-click="goToState(char)">
+            <md-list-item ng-repeat="char in character | filter:{'name': search}" class="md-2-line" ng-click="goToState(char)">
                 <img ng-src="images/{{char.profession}}_icon.png" class="md-avatar" alt="{{char.profession}}" />
                 <div flex class="md-list-item-text" layout="column">
                     <h3>                        {{ char.name }} <span ng-if="char.guild.guild_name">[{{ char.guild.tag }}]</span></h3>

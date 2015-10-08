@@ -10,6 +10,7 @@
         </h2>
 	</div>
 </md-toolbar>
+<md-progress-linear ng-show="isLoading" md-mode="indeterminate"></md-progress-linear>
 <md-content flex class="md-padding" layout="column" style="height:100%;">
 	<div flex ng-repeat="slot in bank">
 		<div style="position:relative">

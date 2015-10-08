@@ -12,7 +12,10 @@
       GetCharacterDetails: getCharacterDetails,
       GetWallet: getWallet,
       GetBank: getBank,
-      GetMaterials: getMaterials
+      GetMaterials: getMaterials,
+      GetAccountSkins: getAccountSkins,
+      GetPvpStats: getPvpStats,
+      GetPvpGames: getPvpGames
     };
     return service;
 
@@ -143,12 +146,11 @@
                 return help;
               });
             })
-            .then(function(materialCategories){
-              materialCategories.forEach(function(categorie){
-                categorie.items.forEach(function(item){
-                  ownedMaterials.forEach(function(ownedMaterial){
-                    if(item.id == ownedMaterial.id)
-                    {
+            .then(function (materialCategories) {
+              materialCategories.forEach(function (categorie) {
+                categorie.items.forEach(function (item) {
+                  ownedMaterials.forEach(function (ownedMaterial) {
+                    if (item.id == ownedMaterial.id) {
                       item.count = ownedMaterial.count;
                     }
                   });
@@ -158,6 +160,226 @@
               return materialCategories;
             });
         });
+    }
+
+    function getPvpStats() {
+      return $http.get(API_URL + 'v2/pvp/stats?lang=de&access_token=' + gw2Factory.apiKey);
+    }
+
+    function getPvpGames() {
+      return $http.get(API_URL + 'v2/pvp/games?lang=de&access_token=' + gw2Factory.apiKey)
+        .then(function (data) {
+          return $http.get(API_URL + 'v2/pvp/games?lang=de&access_token=' + gw2Factory.apiKey + '&ids=' + data.data.toString())
+            .then(function (results) {
+              return results.data;
+            });
+        }).then(function (gameDetails) {
+          return getMaps()
+            .then(function (mapDetails) {
+              gameDetails.forEach(function (game) {
+                game.map = mapDetails[game.map_id];
+                game.duration = getDurationFromGame(game);
+              });
+              return gameDetails;
+            });
+        });
+    }
+
+    function getDurationFromGame(game) {
+      return dateDiff(game.started,game.ended).m;
+    }
+
+    function dateDiff(str1, str2) {
+      var diff = Date.parse(str2) - Date.parse(str1);
+      return isNaN(diff) ? NaN : {
+        diff: diff,
+        ms: Math.floor(diff % 1000),
+        s: Math.floor(diff / 1000 % 60),
+        m: Math.floor(diff / 60000 % 60),
+        h: Math.floor(diff / 3600000 % 24),
+        d: Math.floor(diff / 86400000)
+      };
+    }
+
+    function getMaps() {
+      return $http.get(API_URL + 'v2/maps')
+        .then(function (data) {
+          var mapIds = data.data;
+          var results = [];
+          var neededMaps = [];
+          mapIds.forEach(function (map) {
+            if (!gw2Factory.maps[map]) {
+              neededMaps.push(map);
+            }
+          });
+
+          var maps = [];
+          var counter = 0;
+          var index = 0;
+          var mapss = [];
+
+          if (neededMaps.length > 100) {
+            while (counter <= neededMaps.length / 100) {
+              mapss[counter] = neededMaps.slice(index, index + 100);
+              counter++;
+              index += 100;
+            }
+            mapss.forEach(function (maps) {
+              results.push(getMapsById(maps.toString()));
+            });
+          }
+          else {
+            mapss = neededMaps;
+            results.push(getMapsById(mapss.toString()));
+          }
+
+          return $q.all(results).then(function (mapsDetails) {
+            var mapDetailsObject = {};
+            mapsDetails.forEach(function (element) {
+              maps = maps.concat(element);
+            });
+            mapIds.forEach(function (map) {
+              if (!gw2Factory.maps[map]) {
+                maps.forEach(function (mapDetail) {
+                  if (mapDetail.id == map) {
+                    mapDetailsObject[map] = mapDetail;
+                    gw2Factory.maps[map] = mapDetail;
+                  }
+                })
+              }
+              else {
+                mapDetailsObject[map] = gw2Factory.maps[map];
+              }
+            });
+            gw2Factory.Save();
+            return mapDetailsObject;
+          });
+        })
+    }
+
+    function getMapsById(mapId) {
+      var deferred = $q.defer();
+      if (mapId.length > 0) {
+        $http.get(API_URL + 'v2/maps?lang=de&ids=' + mapId).success(function (map) {
+          deferred.resolve(map);
+        }).error(function () {
+          deferred.resolve([]);
+        });
+      }
+      else {
+        deferred.resolve([]);
+      }
+      return deferred.promise;
+    }
+
+    function getAccountSkins() {
+      return $http.get(API_URL + 'v2/skins')
+        .then(function (data) {
+          var allSkins = data.data;
+          var neededSkins = [];
+
+          var skins = [];
+          allSkins.forEach(function (id) {
+            if (!gw2Factory.skins[id]) {
+              neededSkins.push(id);
+            }
+          });
+          var counter = 0;
+          var index = 0;
+          var Skins = [];
+          var skinResults = [];
+          if (neededSkins.length > 100) {
+            while (counter <= neededSkins.length / 100) {
+              Skins[counter] = neededSkins.slice(index, index + 100);
+              counter++;
+              index += 100;
+            }
+            Skins.forEach(function (skins) {
+              skinResults.push(getSkinDetails(skins.toString()));
+            });
+          }
+          else {
+            Skins = neededSkins;
+            skinResults.push(getSkinDetails(Skins.toString()));
+          }
+
+
+
+          return $q.all(skinResults).then(function (skinResults) {
+            skinResults.forEach(function (element) {
+              skins = skins.concat(element);
+            });
+            allSkins.forEach(function (skin) {
+              if (neededSkins.indexOf(skin) == -1) {
+                skins.push(gw2Factory.skins[skin]);
+              }
+            });
+            return skins;
+          });
+        })
+        .then(function (skins) {
+          var ownedSkins = getOwnedSkins();
+          return $q.all([ownedSkins]).then(function (result) {
+            var results = result[0];
+            var ergebnis = {};
+            skins.forEach(function (skin) {
+              if (!gw2Factory.skins[skin.id]) {
+                gw2Factory.skins[skin.id] = skin;
+              }
+              var details = skin.details;
+              if (results.indexOf(skin.id) >= 0) {
+                skin.owned = true;
+              }
+              else {
+                skin.owned = false;
+              }
+              if (details) {
+                if (details.weight_class) {
+                  if (!ergebnis[details.weight_class]) {
+                    ergebnis[details.weight_class] = {};
+                  }
+                  if (!ergebnis[details.weight_class][details.type]) {
+                    if (details.weight_class == 'Clothing') {
+                      ergebnis[details.weight_class] = []
+                    }
+                    else {
+                      ergebnis[details.weight_class][details.type] = [];
+                    }
+
+                  }
+                  if (details.weight_class == 'Clothing') {
+                    ergebnis[details.weight_class].push(skin);
+                  }
+                  else {
+                    ergebnis[details.weight_class][details.type].push(skin);
+                  }
+                }
+                else if (details.damage_type) {
+                  if (!ergebnis[details.type]) {
+                    ergebnis[details.type] = [];
+                  }
+                  ergebnis[details.type].push(skin);
+                }
+              }
+              else if (skin.type) {
+                if (!ergebnis[skin.type]) {
+                  ergebnis[skin.type] = [];
+                }
+                ergebnis[skin.type].push(skin);
+              }
+            });
+            gw2Factory.Save();
+            return ergebnis;
+          });
+        });
+    }
+
+    function getOwnedSkins() {
+      var deferred = $q.defer();
+      $http.get(API_URL + 'v2/account/skins?lang=de&access_token=' + gw2Factory.apiKey).success(function (skins) {
+        deferred.resolve(skins);
+      });
+      return deferred.promise;
     }
 
     function getWallet() {
@@ -315,7 +537,10 @@
       if (skinIds.length > 0) {
         $http.get(API_URL + 'v2/skins?lang=de&ids=' + skinIds).success(function (skinDetails) {
           deferred.resolve(skinDetails);
-        });
+        }).
+          error(function () {
+            deferred.resolve([]);
+          });
       }
       else {
         deferred.resolve([]);

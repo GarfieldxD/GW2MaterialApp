@@ -30,7 +30,8 @@
 <div>
         {{ctrl.item.rarity}}
         <br> {{ctrl.item.details.type}} {{ctrl.item.details.weight_class}}
-        <br> Level: {{ctrl.item.level}}
+        <span ng-if="ctrl.item.level"><br> Level: {{ctrl.item.level}}</span>
+        <span ng-if="ctrl.item.restrictions.length > 0"><br><span ng-repeat="item in ctrl.item.restrictions">{{item}}</span></span>
         <br>
         <span bind-compiled-html="ctrl.item.description"></span>
 </div>

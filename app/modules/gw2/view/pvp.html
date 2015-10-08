@@ -1,0 +1,39 @@
+<md-toolbar layout="row" class="md-whiteframe-z2">
+	<div class="md-toolbar-tools">
+		<md-button ng-click="ToggleLeft()" class="md-icon-button" aria-label="Menu">
+			<ng-md-icon icon="menu"></ng-md-icon>
+		</md-button>
+		<h2 flex>
+          <center>                    
+			<strong>PVP</strong>	
+        </center>
+        </h2>
+	</div>
+</md-toolbar>
+<md-progress-linear ng-show="isLoading" md-mode="indeterminate"></md-progress-linear>
+<md-content flex layout="column" style="height:100%;">
+	<md-tabs md-dynamic-height md-border-bottom class="md-accent" md-stretch-tabs="2" md-swipe-content="true">
+		<md-tab>
+			<md-tab-label>
+				<section layout="column" layout-align="center center">
+					<md-icon md-svg-icon="general" class="tabItemFilled"></md-icon>
+				</section>
+			</md-tab-label>
+			<md-tab-body>
+				<md-content flex class="md-padding" style="height:100%;" ng-include="'/modules/gw2/view/pvp.stats.html'">
+				</md-content>
+			</md-tab-body>
+		</md-tab>
+		<md-tab>
+			<md-tab-label>
+				<section layout="column" layout-align="center center">
+					<md-icon md-svg-icon="weapons" class="tabItemFilled"></md-icon>
+				</section>
+			</md-tab-label>
+			<md-tab-body>
+				<md-content flex class="md-padding" style="height:100%;" ng-include="'/modules/gw2/view/pvp.games.html'">
+				</md-content>
+			</md-tab-body>
+		</md-tab>
+	</md-tabs>	
+</md-content>

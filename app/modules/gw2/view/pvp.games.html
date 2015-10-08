@@ -1,0 +1,27 @@
+<md-list flex>
+	<md-list-item class="md-3-line" ng-repeat="item in games">
+		<img ng-src="images/{{item.profession}}_icon.png" class="md-avatar" alt="{{profession}}" />
+		<div class="md-list-item-text">
+			<div>
+				<center>{{item.map.name}}</center>
+			</div>
+			<div>
+				<ng-md-icon icon="access_time" class="{{item.team}}" ></ng-md-icon> {{item.started | date:'dd.MM.yyyy HH:mm'}}
+				~{{item.duration}}m
+			</div>
+			<div layout="row">
+				<div flex layout="column">
+					<center ng-class="{'md-accent':item.team ==='Red'}">{{item.scores.red}}</center>
+				</div>
+				<div flex layout="column">
+					<center ng-class="{'md-accent':item.team ==='Blue'}">{{item.scores.blue}}</center>
+				</div>
+			</div>
+			<div class="progress-bar">
+				<div class="red" style="width: {{(100/1000)*item.scores.red}}%"></div>
+				<div class="left" style="width: {{(100/1000)*(1000-(item.scores.red + item.scores.blue))}}%"></div>
+				<div class="blue" style="width: {{(100/1000)*item.scores.blue}}%"></div>
+			</div>
+		</div>
+	</md-list-item>
+</md-list>

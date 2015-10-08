@@ -57,6 +57,16 @@
           });
         }
       };
+    })
+    .filter('capitalize', function () {
+      return function (input) {
+        if(input.charAt){
+        return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
+        }
+        else {
+          return input;
+        }
+      }
     });
 
   function sidenavService($q, $mdUtil, $mdSidenav, $log) {
@@ -115,6 +125,7 @@
       guilds: storage.GetFromStorage('Guilds'),
       items: storage.GetFromStorage('Items'),
       skins: storage.GetFromStorage('Skins'),
+      maps: storage.GetFromStorage('Maps'),
       Save: save
     };
     if (factory.apiKey == null) {
@@ -127,12 +138,14 @@
       storage.AddToStorage('Guilds', factory.guilds);
       storage.AddToStorage('Items', factory.items);
       storage.AddToStorage('Skins', factory.skins);
+      storage.AddToStorage('Maps', factory.maps);
     }
 
     function init() {
       var items = storage.GetFromStorage('Items');
       var guilds = storage.GetFromStorage('Guilds');
       var skins = storage.GetFromStorage('Skins');
+      var maps = storage.GetFromStorage('Maps');
       if (!items) {
         storage.AddToStorage('Items', {});
       }
@@ -141,6 +154,9 @@
       }
       if (!skins) {
         storage.AddToStorage('Skins', {});
+      }
+      if (!maps) {
+        storage.AddToStorage('Maps', {});
       }
     }
 
